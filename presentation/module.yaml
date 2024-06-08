@@ -1,0 +1,10 @@
+product:
+  type: lib
+  platforms: [ jvm ]
+
+dependencies:
+  - ../common
+  - io.arrow-kt:arrow-core:1.2.4
+  - org.http4k:http4k-core:5.15.0.0
+  - gg.jte:jte:3.1.12
+  - gg.jte:jte-kotlin:3.1.12

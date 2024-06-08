@@ -1,0 +1,13 @@
+product:
+  type: lib
+  platforms: [ jvm ]
+
+dependencies:
+  - ../common
+  - io.arrow-kt:arrow-core:1.2.4
+  - org.ktorm:ktorm-core:4.0.0
+
+settings:
+  kotlin:
+    freeCompilerArgs:
+      - "-Xcontext-receivers"

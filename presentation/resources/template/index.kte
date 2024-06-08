@@ -1,0 +1,8 @@
+@import presentation.IndexModel
+@param model: IndexModel
+
+<html lang="ru">
+<body>
+${model.name}
+</body>
+</html>
