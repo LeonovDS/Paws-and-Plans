@@ -1,0 +1,317 @@
+:root {
+    --blocks-margin: 16px;
+    --blocks-border-radius: 48px;
+    --standard-padding: 8px;
+    --standard-vertical-text-padding: 8px;
+    --standard-horizontal-text-padding: 8px;
+
+    --lilac: #BABDE2;
+    --darklilac: #374375;
+    --blue: #000950;
+    --white: #F5F5F5;
+
+    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+body {
+  margin-left: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: 1rem KyivType Sans;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.wrapper {
+    height: 100vh;
+}
+
+/*скругление внешних карточек*/
+.card {
+    border-radius: var(--blocks-border-radius);
+}
+
+/*верхняя часть скругления*/
+.semi-card {
+    border-radius: 0 var(--blocks-border-radius) var(--blocks-border-radius) 0;
+}
+
+.container {
+	display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+	height: 100%;
+	gap: var(--blocks-margin);
+	padding: var(--blocks-margin);
+	box-sizing: border-box;
+	grid-template-columns: 3fr 1fr 3fr;
+	grid-template-rows: auto 1fr auto;
+	background: var(--white);
+}
+
+/*задняя часть верха*/
+.header {
+    grid-column: 1/3;
+    background: var(--darklilac);
+    padding: 0 calc(4 * var(--blocks-border-radius)) 0 0 ;
+    box-shadow: var(--shadow);
+}
+
+.header-text {
+    box-sizing: border-box;
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    background: var(--lilac);
+    height: 100%;
+    color: var(--blue);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    font-size: 2rem;
+}
+
+.shop-button-wrapper {
+    display: inline-block;
+    grid-column: 3;
+    background: var(--darklilac);
+    padding: var(--standard-padding);
+    box-shadow: var(--shadow);
+    width: fit-content;
+    justify-self: end;
+}
+
+.shop-button {
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    background: var(--lilac);
+    color: var(--blue);
+    width: fit-content;
+}
+
+
+/* отступы карточек внутри */
+.card-wrapper1 {
+    grid-column: 1;
+    padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
+    background-color: var(--darklilac);
+    box-shadow: var(--shadow);
+		margin-left:10vh;
+		height: auto;
+		width: 80%;
+}
+
+.card-wrapper2 {
+    grid-column: 3;
+    padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
+    background-color: var(--darklilac);
+    box-shadow: var(--shadow);
+	margin-right: 10vh;
+	width: 80%;
+}
+
+
+
+.option-card1 {
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--standard-padding));
+    background: var(--lilac);
+    height: 100%;
+}
+
+.option-card2 {
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--standard-padding));
+    background: var(--lilac);
+    height: 100%;
+}
+
+
+.option-name {
+    background-color: var(--lilac);
+    color: var(--darklilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+}
+
+.option-text {
+    color: var(--lilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+}
+.name-bar{
+	display: flex;
+  	flex-direction: column;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(var(--standard-padding));
+	margin-top: 20px;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+.task_name{
+	padding: 0px;
+	background-color: var(--darklilac);
+	color: var(--lilac);
+	margin-right: 55%;
+	border-radius: 45px;
+	padding:4px 4px 4px 4px;
+}
+.task_name2{
+	padding: 0px;
+	background-color: var(--darklilac);
+	color: var(--lilac);
+	margin-right: 45%;
+	border-radius: 45px;
+	padding:4px 4px 4px 4px;
+}
+.name-bar2{
+	height: 20vh;
+	display: flex;
+  	flex-direction: column;
+	background-color: var(--white);
+	border-radius: 19px 45px 45px 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+	margin-top: 20px;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+.level{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+}
+
+
+.easy{
+  flex-direction: column;
+	padding:10px 10px 10px 10px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+	
+}
+.harder{
+  flex-direction: column;
+	padding:10px 10px 10px 10px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+
+}
+.difficult{
+  flex-direction: column;
+	padding:10px 10px 10px 10px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+}
+.stars{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.easy_t{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.middle_t{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hard_t{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.task_name3{
+	display: flex;
+	background-color: var(--darklilac);
+	color: var(--lilac);
+	margin-right: 40%;
+	border-radius: 45px;
+	padding-left: 3%;
+	align-items: center;
+}
+.date{
+	display: grid;
+  	grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+	margin-top: 20px;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+.day{
+	color: var(--darklilac);
+	border-radius: 45px;
+	margin:0;
+}
+.form{
+	color: var(--darklilac);
+	border-radius: 45px;
+	padding:4px 4px 4px 4px;
+}
+.cancel{
+	padding: 15px;
+	margin-right: 45%;
+	border-radius: 50px;
+	background-color: var(--darklilac) ;
+}
+.add{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+	margin-bottom:20px;
+	gap: calc(2 * var(--standard-padding));
+	margin-left: 3%;
+	margin-right: 3%;
+}
+.delete{
+	display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+  flex-direction: column;
+	padding:3px 3px 3px 3px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+	margin-left: 0%;
+}
+.add_task{
+	display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+  flex-direction: column;
+	padding:3px 3px 3px 3px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	margin-right: 0%;
+}
+.add_t{
+	display: flex;
+  justify-content: center;
+  	align-items: center;
+	margin-right: 3px;
+}
+
+
+  
+  .name-bar form {
+	margin-left: 250px; 
+	margin-bottom: 10px;
+	
+  }
+  
+  .text_input{
+	margin-left: 230px;
+	display: flex;
+  }
