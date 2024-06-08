@@ -1,1 +1,5 @@
 product: jvm/app
+
+dependencies:
+  - org.http4k:http4k-core:5.15.0.0
+  - org.http4k:http4k-server-jetty:5.15.0.0
