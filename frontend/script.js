@@ -6,3 +6,4 @@ words.forEach(word => {
     tooltip.style.display = 'block';
   });
 });
+

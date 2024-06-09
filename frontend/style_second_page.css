@@ -215,6 +215,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+.stars1{
+	display: flex;
+  justify-content: center;
+  
+}
+
+
 .easy_t{
 	display: flex;
   justify-content: center;
@@ -312,6 +319,37 @@ body {
   }
   
   .text_input{
-	margin-left: 230px;
+	margin-left: calc(30 * var(--standard-padding));
 	display: flex;
+  }
+
+  .option2 {
+    display: flex;
+    background-color: var(--white);
+    margin: 0 var(--standard-padding);
+    transform: translate(0, calc(1.5 * var(--standard-padding)));
+  
+  
+}
+
+.option-name {
+    background-color: var(--darklilac);
+    color: var(--lilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	display: grid;
+	justify-content: center;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows:  0.2fr 0.2fr;
+  
+}
+
+.option-text {
+    color: var(--darklilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	background-color: var(--white);
+}
+
+.option-name.card img {
+	grid-column: 2;
+	grid-row: 2;
   }
