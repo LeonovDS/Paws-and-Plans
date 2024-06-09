@@ -1,8 +1,88 @@
 @import presentation.IndexModel
 @param model: IndexModel
 
-<html lang="ru">
-<body>
-${model.name}
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="tasks.css">
+        <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <title>Paws and Plans - Главная</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container">
+                <div class="header semi-card">
+                    <div class="header-text semi-card">
+                        Главная страница
+                    </div>
+                </div>
+                <div class="shop-button-wrapper card">
+                    <div class="shop-button card" hx-get="shop.html" hx-target=".container" hx-swap="beforeend">
+                        Магазин
+                    </div>
+                </div>
+                <div class="shop-button-wrapper1 card">
+                    <div class="shop-button1 card">
+                        <b href="#main">Настройки</b>
+                    </div>
+                </div>
+
+                <div class="main-card card"></div>
+                <div class="card-wrapper card">
+                    <div class="option-card card">
+                        <div class="option1 card">
+                            <div class="option-name card">Свойства</div>
+                        </div>
+                        <div class="option2 card">
+                            <div class="option-name card">Имя</div>
+                            <div class="option-text card">${model.name}</div>
+                        </div>
+                        <div class="option2 card">
+                            <div class="option-name card">Монеты</div>
+                            <div class="option-text card">${model.coins}</div>
+                        </div>
+                        <div class="option2 card">
+                            <div class="option-name card">Счастье</div>
+                            <div class="option-text card">${model.happyness}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper card">
+                    <div class="option-card card">
+                        <div class="option1 card">
+                            <div class="option-name card">Текущие задачи</div>
+                        </div>
+                        @for((i, task) in model.tasks.withIndex())
+                            <div class="option2 card">
+                                <div class="option-name card">${i + 1}</div>
+                                <div class="option-text card">${task.name}</div>
+                            </div>
+                        @endfor
+                        <a href="tasks.html" hx-boost="true">
+                            <div class="add_new">
+                                <img src="images/plus.svg" alt="star">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer semi-card">
+                    <div class="name-wrapper semi-card">
+                        <div class="name semi-card">
+                            ${model.name}
+                        </div>
+                    </div>
+                    <div class="chat-wrapper semi-card">
+                        <div class="chat semi-card">
+                            ${model.speech}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<script src="index.js"></script>-->
+    </body>
 </html>

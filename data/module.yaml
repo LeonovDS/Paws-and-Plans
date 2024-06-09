@@ -11,3 +11,4 @@ settings:
   kotlin:
     freeCompilerArgs:
       - "-Xcontext-receivers"
+    languageVersion: 2.0

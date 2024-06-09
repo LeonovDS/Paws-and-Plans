@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style_second_page.css">
-	<title>Document</title>
+	<link rel="stylesheet" href="tasks.css">
+	<title>Paws and Plans - Задачи</title>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="header semi-card">
 				<div class="header-text semi-card">
-					задачи
+					Задачи
 				</div>
 			</div>
 			
@@ -71,7 +71,7 @@
 							<div class="add_t">удалить</div>
 						</div>
 
-						<div class="add_task">
+						<div class="add_task" hx-post="/add-task">
 							<img src="images/plus.svg" class="cancel" alt="star">
 							<div class="add_t">добавить</div>
 						</div>
@@ -105,7 +105,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="script2.js"></script>
+	<script src="tasks.js"></script>
 </body>
 
 </html>
