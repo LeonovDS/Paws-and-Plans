@@ -1,0 +1,20 @@
+@import TaskData
+@import Priority
+@param task: TaskData
+
+<div class="option2 card">
+    <div class="option-name card">
+        !{val count = when (task.priority) {
+                                    Priority.LOW -> 1
+                                    Priority.MEDIUM -> 2
+                                    Priority.HIGH -> 3
+                                }}
+        @for (i in 0 until count)
+            <div class="stars1">
+                <img src="images/Starsmall.svg" alt="star1">
+            </div>
+        @endfor
+        <div class="name-card">${count}</div>
+    </div>
+    <div class="option-text card">${task.name}</div>
+</div>

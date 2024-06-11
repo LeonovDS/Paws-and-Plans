@@ -1,0 +1,96 @@
+@import IndexModel
+@param model: IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <title>Paws and Plans - Главная</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="header semi-card">
+            <div class="box_circles semi-card">
+                <div class="header-text">
+                    Главная страница
+                    <a href="/tasks">
+                        <div class="circle">
+                            <img src="images/circle_white.svg" alt="star">
+                        </div>
+                    </a>
+                    <div class="circle1">
+                        <img src="images/circle_lilac.svg" alt="star">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-button-wrapper card" hx-get="shop" hx-target=".container" hx-swap="beforeend">
+            <div class="shop-button card">
+                Магазин
+            </div>
+        </div>
+        <div class="shop-button-wrapper1 card" hx-get="settings" hx-target=".container" hx-swap="beforeend">
+            <div class="shop-button1 card">
+                Настройки
+            </div>
+        </div>
+        <div class="main-card card"></div>
+        <div class="card-wrapper card">
+            <div class="option-card card">
+                <div class="option1 card">
+                    <div class="option-name card">Свойства</div>
+                </div>
+                <div class="option2 card">
+                    <div class="option-name card">Имя</div>
+                    <div class="option-text card">${model.petModel.name}</div>
+                </div>
+                <div class="option2 card">
+                    <div class="option-name card">Монеты</div>
+                    <div class="option-text card">${model.petModel.coins}</div>
+                </div>
+                <div class="option2 card">
+                    <div class="option-name card">Счастье</div>
+                    <div class="option-text card">${model.petModel.happyness}</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper card">
+            <div class="option-card card">
+                <div class="option1 card">
+                    <div class="option-name card">Текущие задачи</div>
+                </div>
+                @for ((i, task) in model.tasks.withIndex())
+                    <div class="option2 card">
+                        <div class="option-name card">${i + 1}</div>
+                        <div class="option-text card">${task.name}</div>
+                    </div>
+                @endfor
+                <a href="/tasks">
+                    <div class="add_new">
+                        <img src="images/plus.svg" alt="star">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="footer semi-card">
+            <div class="name-wrapper semi-card">
+                <div class="name semi-card">
+                    ${model.petModel.name}
+                </div>
+            </div>
+            <div class="chat-wrapper semi-card">
+                <div class="chat semi-card">
+                    ${model.speech}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
