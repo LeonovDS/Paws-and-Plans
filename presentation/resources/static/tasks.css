@@ -40,13 +40,11 @@ body {
 
 .container {
 	display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
 	height: 100%;
 	gap: var(--blocks-margin);
 	padding: var(--blocks-margin);
 	box-sizing: border-box;
 	grid-template-columns: 3fr 1fr 3fr;
-	grid-template-rows: auto 1fr auto;
 	background: var(--white);
 }
 
@@ -54,7 +52,7 @@ body {
 .header {
     grid-column: 1/3;
     background: var(--darklilac);
-    padding: 0 calc(4 * var(--blocks-border-radius)) 0 0 ;
+    padding: 0 calc(4 * var(--blocks-border-radius)) 0 0;
     box-shadow: var(--shadow);
 }
 
@@ -125,6 +123,7 @@ body {
     gap: calc(2 * var(--standard-padding));
     background: var(--lilac);
     height: 100%;
+	box-shadow: var(--shadow);
 }
 
 
@@ -215,11 +214,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-.stars1{
-	display: flex;
-  justify-content: center;
-  
-}
 
 
 .easy_t{
@@ -284,7 +278,7 @@ body {
 }
 .delete{
 	display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+  grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
   flex-direction: column;
 	padding:3px 3px 3px 3px;
 	background-color: var(--white);
@@ -295,17 +289,36 @@ body {
 }
 .add_task{
 	display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
-  flex-direction: column;
+ 	grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
+  	flex-direction: column;
 	padding:3px 3px 3px 3px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	margin-right: 0%;
 }
+
+.wrapper{
+	display: grid;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.done{
+	display: grid;
+ 	grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
+  	flex-direction: column;
+	padding:3px 3px 3px 3px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	margin-bottom: 20px;
+}
+
 .add_t{
 	display: flex;
-  justify-content: center;
+  	justify-content: center;
   	align-items: center;
 	margin-right: 3px;
 }
@@ -332,15 +345,16 @@ body {
   
 }
 
+
+
 .option-name {
     background-color: var(--darklilac);
     color: var(--lilac);
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
 	display: grid;
 	justify-content: center;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows:  0.2fr 0.2fr;
-  
+	flex-direction: column;
+	padding:10px 30px 10px 30px;
+	
 }
 
 .option-text {
@@ -349,7 +363,16 @@ body {
 	background-color: var(--white);
 }
 
-.option-name.card img {
-	grid-column: 2;
-	grid-row: 2;
-  }
+
+.stars1{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 2;
+}
+
+.name-card{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
