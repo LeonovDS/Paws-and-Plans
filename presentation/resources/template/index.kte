@@ -1,4 +1,4 @@
-@import presentation.IndexModel
+@import IndexModel
 @param model: IndexModel
 
 <!DOCTYPE html>
@@ -39,15 +39,15 @@
                         </div>
                         <div class="option2 card">
                             <div class="option-name card">Имя</div>
-                            <div class="option-text card">${model.name}</div>
+                            <div class="option-text card">${model.petModel.name}</div>
                         </div>
                         <div class="option2 card">
                             <div class="option-name card">Монеты</div>
-                            <div class="option-text card">${model.coins}</div>
+                            <div class="option-text card">${model.petModel.coins}</div>
                         </div>
                         <div class="option2 card">
                             <div class="option-name card">Счастье</div>
-                            <div class="option-text card">${model.happyness}</div>
+                            <div class="option-text card">${model.petModel.happyness}</div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="footer semi-card">
                     <div class="name-wrapper semi-card">
                         <div class="name semi-card">
-                            ${model.name}
+                            ${model.petModel.name}
                         </div>
                     </div>
                     <div class="chat-wrapper semi-card">

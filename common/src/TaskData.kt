@@ -1,6 +1,6 @@
 import java.time.LocalDateTime
 
-data class EventData(
+data class TaskData(
     val name: String,
     val description: String,
     val priority: Priority,

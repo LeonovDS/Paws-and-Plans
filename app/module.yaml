@@ -2,8 +2,12 @@ product: jvm/app
 
 dependencies:
   - ../presentation
+  - ../data
   - org.http4k:http4k-core:5.15.0.0
   - org.http4k:http4k-server-jetty:5.15.0.0
+  - org.slf4j:slf4j-api:2.0.13
+  - org.slf4j:slf4j-simple:2.0.13
+  - org.ktorm:ktorm-core:4.0.0
 
 settings:
   kotlin:

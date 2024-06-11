@@ -1,0 +1,11 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+settings:
+  kotlin:
+    languageVersion: 2.0
+
+dependencies:
+  - ../common
+  - io.arrow-kt:arrow-core:1.2.4

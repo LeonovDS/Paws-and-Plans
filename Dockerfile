@@ -8,8 +8,5 @@ COPY app/build/distributions/app.tar ./
 RUN tar xf app.tar --directory ./
 RUN rm app.tar
 
-RUN mkdir frontend
-COPY frontend ./frontend
-
 CMD ["sh", "app/bin/app"]
-EXPOSE 8080
+EXPOSE 2020
