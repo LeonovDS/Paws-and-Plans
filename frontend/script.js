@@ -7,3 +7,11 @@ words.forEach(word => {
   });
 });
 
+// Получаем элемент с классом "circle1"
+const circle1 = document.querySelector('.circle1');
+
+// Добавляем обработчик события "click"
+circle1.addEventListener('click', () => {
+    // Открываем страницу "second_page.html"
+    window.location.href = 'second_page.html';
+});

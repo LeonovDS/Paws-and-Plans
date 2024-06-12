@@ -12,6 +12,17 @@
 
     --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+@font-face {
+	font-family: 'avenirnextcyr';
+	src: url('fonts/avenirnextcyr-thin.eot');
+	src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+		 url('fonts/avenirnextcyr-thin.woff') format('woff'),
+		 url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
+  
 body {
   margin-left: 0;
 }
@@ -19,7 +30,7 @@ body {
 * {
     margin: 0;
     padding: 0;
-    font: 1rem KyivType Sans;
+    font: 1.1rem 'avenirnextcyr';
     text-transform: uppercase;
     font-weight: 600;
 }
@@ -332,9 +343,40 @@ body {
   }
   
   .text_input{
-	margin-left: calc(30 * var(--standard-padding));
+	margin-left: calc(28 * var(--standard-padding));
+	margin-top: 4px;
 	display: flex;
+	position: absolute;
   }
+
+  .text_input input[type="text"] {
+	width: 100%; /* Делаем текстовую форму на всю ширину родительского элемента */
+	border: none; /* Убираем обводку */
+	outline: none; /* Убираем фокусное выделение */
+	background-color: transparent; /* Делаем фон прозрачным */
+	font-size: 16px; /* Устанавливаем размер шрифта */
+	color: #333; /* Устанавливаем цвет текста */
+  }
+  
+  .text_input1{
+	margin-top: 30px;
+	display: flex;
+	position: absolute;
+  }
+
+  .text_input1 textarea {
+	overflow: hidden;
+	border: none; /* Убираем обводку */
+	outline: none; /* Убираем фокусное выделение */
+	background-color: transparent; /* Делаем фон прозрачным */
+	font-size: 16px; /* Устанавливаем размер шрифта */
+	color: #333; /* Устанавливаем цвет текста */
+	padding: 5px; /* Добавляем небольшие отступы */
+	resize: vertical; /* Разрешаем вертикальное растяжение, но запрещаем горизонтальное */
+	height: 98px; /* Устанавливаем начальную высоту */
+	width: 450px;
+  }
+  
 
   .option2 {
     display: flex;
