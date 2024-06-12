@@ -12,11 +12,21 @@
 
     --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+@font-face {
+	font-family: 'avenirnextcyr';
+	src: url('fonts/avenirnextcyr-thin.eot');
+	src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+		 url('fonts/avenirnextcyr-thin.woff') format('woff'),
+		 url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
 
 * {
     margin: 0;
     padding: 0;
-    font: 1.2rem KyivType Sans;
+    font: 1.2rem 'avenirnextcyr';
     text-transform: uppercase;
     font-weight: 600;
 }
@@ -164,6 +174,36 @@ a:active {
     gap: calc(2 * var(--standard-padding));
     background: var(--lilac);
     height: 100%;
+}
+
+.pop-up-card{
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--standard-padding));
+    background: var(--lilac);
+    margin-left: 42px;
+    position: absolute;
+    margin-top: 50px;
+}
+
+.pop-up-option{
+    display: flex;
+    background-color: var(--white);
+    margin: 0 var(--standard-padding);
+    transform: translate(0, calc(1.5 * var(--standard-padding)));
+}
+
+.pop-up-name{
+    background-color: var(--darklilac);
+    color: var(--lilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+}
+
+.pop-up-text{
+    color: var(--darklilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    background-color: var(--white);
+    width: 200px;
 }
 
 .option1 {
@@ -468,4 +508,37 @@ a:active {
     margin-top: 15px;
 
 }
-*/
+
+.divider{
+    position: absolute;
+    margin-left: 50px;
+    padding-top: 22px;
+
+}
+
+.divider_2{
+    position: absolute;
+    margin-left: 37px;
+    padding-top: 22px;
+}
+
+.pop-up-header{
+    height: 30vh;
+	display: flex;
+  	flex-direction: column;
+	background-color: var(--white);
+	border-radius: 19px 19px 45px 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+	margin-top: 20px;
+	margin-left: 2.2%;
+	margin-right: 2.2%;
+}
+
+.pet-chose{
+    padding: 0px;
+	background-color: var(--darklilac);
+	color: var(--lilac);
+	border-radius: 45px;
+	padding:4px 4px 4px 6px;
+}
