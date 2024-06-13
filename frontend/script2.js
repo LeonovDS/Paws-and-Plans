@@ -9,3 +9,12 @@ document.querySelector('.add_task').addEventListener('click', function() {
       document.getElementById('taskInput').value = ''; // Clear the input field
     }
   });
+
+  // Получаем элемент с классом "circle1"
+const circle1 = document.querySelector('.circle2');
+
+// Добавляем обработчик события "click"
+circle1.addEventListener('click', () => {
+    // Открываем страницу "second_page.html"
+    window.location.href = 'first_page.html';
+});

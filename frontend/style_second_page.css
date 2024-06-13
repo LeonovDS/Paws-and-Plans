@@ -1,52 +1,53 @@
 :root {
-    --blocks-margin: 16px;
-    --blocks-border-radius: 48px;
-    --standard-padding: 8px;
-    --standard-vertical-text-padding: 8px;
-    --standard-horizontal-text-padding: 8px;
+	--blocks-margin: 16px;
+	--blocks-border-radius: 48px;
+	--standard-padding: 8px;
+	--standard-vertical-text-padding: 8px;
+	--standard-horizontal-text-padding: 8px;
 
-    --lilac: #BABDE2;
-    --darklilac: #374375;
-    --blue: #000950;
-    --white: #F5F5F5;
+	--lilac: #BABDE2;
+	--darklilac: #374375;
+	--blue: #000950;
+	--white: #F5F5F5;
 
-    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	--shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 @font-face {
 	font-family: 'avenirnextcyr';
 	src: url('fonts/avenirnextcyr-thin.eot');
 	src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
-		 url('fonts/avenirnextcyr-thin.woff') format('woff'),
-		 url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+		url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+		url('fonts/avenirnextcyr-thin.woff') format('woff'),
+		url('fonts/avenirnextcyr-thin.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
-  }
-  
+}
+
 body {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    font: 1.1rem 'avenirnextcyr';
-    text-transform: uppercase;
-    font-weight: 600;
+	margin: 0;
+	padding: 0;
+	font: 1.2rem 'avenirnextcyr';
+	text-transform: uppercase;
+	font-weight: 600;
 }
 
 .wrapper {
-    height: 100vh;
+	height: 100vh;
 }
 
 /*скругление внешних карточек*/
 .card {
-    border-radius: var(--blocks-border-radius);
+	border-radius: var(--blocks-border-radius);
 }
 
 /*верхняя часть скругления*/
 .semi-card {
-    border-radius: 0 var(--blocks-border-radius) var(--blocks-border-radius) 0;
+	border-radius: 0 var(--blocks-border-radius) var(--blocks-border-radius) 0;
 }
 
 .container {
@@ -55,102 +56,104 @@ body {
 	gap: var(--blocks-margin);
 	padding: var(--blocks-margin);
 	box-sizing: border-box;
-	grid-template-columns: 3fr 1fr 3fr;
+	grid-template-columns: 2fr 1fr 2fr;
 	background: var(--white);
 }
 
 /*задняя часть верха*/
 .header {
-    grid-column: 1/3;
-    background: var(--darklilac);
-    padding: 0 calc(4 * var(--blocks-border-radius)) 0 0;
-    box-shadow: var(--shadow);
+	grid-column: 1/3;
+	background: var(--darklilac);
+	padding: 0 calc(4 * var(--blocks-border-radius)) 0 0;
+	box-shadow: var(--shadow);
+	height: 79%;
+	width: 90%;
 }
 
 .header-text {
-    box-sizing: border-box;
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
-    background: var(--lilac);
+	padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
     height: 100%;
     color: var(--blue);
-    box-shadow: var(--shadow);
-    display: flex;
     align-content: center;
     flex-wrap: wrap;
     font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .shop-button-wrapper {
-    display: inline-block;
-    grid-column: 3;
-    background: var(--darklilac);
-    padding: var(--standard-padding);
-    box-shadow: var(--shadow);
-    width: fit-content;
-    justify-self: end;
+	display: inline-block;
+	grid-column: 3;
+	background: var(--darklilac);
+	padding: var(--standard-padding);
+	box-shadow: var(--shadow);
+	width: fit-content;
+	justify-self: end;
 }
 
 .shop-button {
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
-    background: var(--lilac);
-    color: var(--blue);
-    width: fit-content;
+	padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	background: var(--lilac);
+	color: var(--blue);
+	width: fit-content;
 }
 
 
 /* отступы карточек внутри */
 .card-wrapper1 {
-    grid-column: 1;
-    padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
-    background-color: var(--darklilac);
-    box-shadow: var(--shadow);
-		margin-left:10vh;
-		height: auto;
-		width: 80%;
+	grid-column: 1;
+	padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
+	background-color: var(--darklilac);
+	box-shadow: var(--shadow);
+	margin-left: 10vh;
+	height: 90%;
+	width: 90%;
 }
 
 .card-wrapper2 {
-    grid-column: 3;
-    padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
-    background-color: var(--darklilac);
-    box-shadow: var(--shadow);
+	grid-column: 3;
+	padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
+	background-color: var(--darklilac);
+	box-shadow: var(--shadow);
 	margin-right: 10vh;
-	width: 80%;
+	width: 90%;
+	height: 90%;
 }
 
 
 
 .option-card1 {
-    display: flex;
-    flex-direction: column;
-    gap: calc(2 * var(--standard-padding));
-    background: var(--lilac);
-    height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: calc(2 * var(--standard-padding));
+	background: var(--lilac);
+	height: 100%;
 }
 
 .option-card2 {
-    display: flex;
-    flex-direction: column;
-    gap: calc(2 * var(--standard-padding));
-    background: var(--lilac);
-    height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: calc(2 * var(--standard-padding));
+	background: var(--lilac);
+	height: 100%;
 	box-shadow: var(--shadow);
 }
 
 
 .option-name {
-    background-color: var(--lilac);
-    color: var(--darklilac);
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	background-color: var(--lilac);
+	color: var(--darklilac);
+	padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
 }
 
 .option-text {
-    color: var(--lilac);
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	color: var(--lilac);
+	padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
 }
-.name-bar{
+
+.name-bar {
 	display: flex;
-  	flex-direction: column;
+	flex-direction: column;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
@@ -159,26 +162,29 @@ body {
 	margin-left: 3%;
 	margin-right: 3%;
 }
-.task_name{
+
+.task_name {
 	padding: 0px;
 	background-color: var(--darklilac);
 	color: var(--lilac);
 	margin-right: 55%;
 	border-radius: 45px;
-	padding:4px 4px 4px 4px;
+	padding: 4px 4px 4px 4px;
 }
-.task_name2{
+
+.task_name2 {
 	padding: 0px;
 	background-color: var(--darklilac);
 	color: var(--lilac);
 	margin-right: 45%;
 	border-radius: 45px;
-	padding:4px 4px 4px 4px;
+	padding: 4px 4px 4px 4px;
 }
-.name-bar2{
+
+.name-bar2 {
 	height: 20vh;
 	display: flex;
-  	flex-direction: column;
+	flex-direction: column;
 	background-color: var(--white);
 	border-radius: 19px 45px 45px 45px;
 	box-shadow: var(--shadow);
@@ -187,62 +193,69 @@ body {
 	margin-left: 3%;
 	margin-right: 3%;
 }
-.level{
+
+.level {
 	display: flex;
 	justify-content: space-around;
 	margin-top: 20px;
 }
 
 
-.easy{
-  flex-direction: column;
-	padding:10px 10px 10px 10px;
-	background-color: var(--white);
-	border-radius: 45px;
-	box-shadow: var(--shadow);
-	gap: calc(2 * var(--standard-padding));
-	
-}
-.harder{
-  flex-direction: column;
-	padding:10px 10px 10px 10px;
+.easy {
+	flex-direction: column;
+	padding: 10px 10px 10px 10px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	gap: calc(2 * var(--standard-padding));
 
 }
-.difficult{
-  flex-direction: column;
-	padding:10px 10px 10px 10px;
+
+.harder {
+	flex-direction: column;
+	padding: 10px 10px 10px 10px;
+	background-color: var(--white);
+	border-radius: 45px;
+	box-shadow: var(--shadow);
+	gap: calc(2 * var(--standard-padding));
+
+}
+
+.difficult {
+	flex-direction: column;
+	padding: 10px 10px 10px 10px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	gap: calc(2 * var(--standard-padding));
 }
-.stars{
+
+.stars {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 
-.easy_t{
+.easy_t {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
 }
-.middle_t{
+
+.middle_t {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
 }
-.hard_t{
+
+.hard_t {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
 }
-.task_name3{
+
+.task_name3 {
 	display: flex;
 	background-color: var(--darklilac);
 	color: var(--lilac);
@@ -251,9 +264,11 @@ body {
 	padding-left: 3%;
 	align-items: center;
 }
-.date{
+
+.date {
 	display: grid;
-  	grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
+	grid-template-columns: repeat(2, 1fr);
+	/* Две колонки одинаковой ширины */
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
@@ -262,159 +277,207 @@ body {
 	margin-left: 3%;
 	margin-right: 3%;
 }
-.day{
+
+.day {
 	color: var(--darklilac);
 	border-radius: 45px;
-	margin:0;
+	margin: 0;
 }
-.form{
+
+.form {
 	color: var(--darklilac);
 	border-radius: 45px;
-	padding:4px 4px 4px 4px;
+	padding: 4px 4px 4px 4px;
 }
-.cancel{
+
+.cancel {
 	padding: 15px;
 	margin-right: 45%;
 	border-radius: 50px;
-	background-color: var(--darklilac) ;
+	background-color: var(--darklilac);
 }
-.add{
+
+.add {
 	display: flex;
 	justify-content: space-around;
 	margin-top: 20px;
-	margin-bottom:20px;
+	margin-bottom: 20px;
 	gap: calc(2 * var(--standard-padding));
 	margin-left: 3%;
 	margin-right: 3%;
 }
-.delete{
+
+.delete {
 	display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
-  flex-direction: column;
-	padding:3px 3px 3px 3px;
+	grid-template-columns: repeat(3, 1fr);
+	/* Две колонки одинаковой ширины */
+	flex-direction: column;
+	padding: 3px 3px 3px 3px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	gap: calc(2 * var(--standard-padding));
 	margin-left: 0%;
 }
-.add_task{
+
+.add_task {
 	display: grid;
- 	grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
-  	flex-direction: column;
-	padding:3px 3px 3px 3px;
+	grid-template-columns: repeat(3, 1fr);
+	/* Две колонки одинаковой ширины */
+	flex-direction: column;
+	padding: 3px 3px 3px 3px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	margin-right: 0%;
 }
 
-.wrapper{
+.wrapper {
 	display: grid;
-  justify-content: center;
-  align-items: center;
-  height: fit-content;
+	justify-content: center;
+	align-items: center;
+	height: fit-content;
 }
 
-.done{
+.done {
 	display: grid;
- 	grid-template-columns: repeat(3, 1fr); /* Две колонки одинаковой ширины */
-  	flex-direction: column;
-	padding:3px 3px 3px 3px;
+	grid-template-columns: repeat(3, 1fr);
+	/* Две колонки одинаковой ширины */
+	flex-direction: column;
+	padding: 3px 3px 3px 3px;
 	background-color: var(--white);
 	border-radius: 45px;
 	box-shadow: var(--shadow);
 	margin-bottom: 20px;
 }
 
-.add_t{
+.add_t {
 	display: flex;
-  	justify-content: center;
-  	align-items: center;
+	justify-content: center;
+	align-items: center;
 	margin-right: 3px;
 }
 
 
-  
-  .name-bar form {
-	margin-left: 250px; 
+
+.name-bar form {
+	margin-left: 250px;
 	margin-bottom: 10px;
-	
-  }
-  
-  .text_input{
+
+}
+
+.text_input {
 	margin-left: calc(28 * var(--standard-padding));
 	margin-top: 4px;
 	display: flex;
 	position: absolute;
-  }
+}
 
-  .text_input input[type="text"] {
-	width: 100%; /* Делаем текстовую форму на всю ширину родительского элемента */
-	border: none; /* Убираем обводку */
-	outline: none; /* Убираем фокусное выделение */
-	background-color: transparent; /* Делаем фон прозрачным */
-	font-size: 16px; /* Устанавливаем размер шрифта */
-	color: #333; /* Устанавливаем цвет текста */
-  }
-  
-  .text_input1{
+.text_input input[type="text"] {
+	width: 100%;
+	/* Делаем текстовую форму на всю ширину родительского элемента */
+	border: none;
+	/* Убираем обводку */
+	outline: none;
+	/* Убираем фокусное выделение */
+	background-color: transparent;
+	/* Делаем фон прозрачным */
+	font-size: 16px;
+	/* Устанавливаем размер шрифта */
+	color: #333;
+	/* Устанавливаем цвет текста */
+}
+
+.text_input1 {
 	margin-top: 30px;
 	display: flex;
 	position: absolute;
-  }
+}
 
-  .text_input1 textarea {
+.text_input1 textarea {
 	overflow: hidden;
-	border: none; /* Убираем обводку */
-	outline: none; /* Убираем фокусное выделение */
-	background-color: transparent; /* Делаем фон прозрачным */
-	font-size: 16px; /* Устанавливаем размер шрифта */
-	color: #333; /* Устанавливаем цвет текста */
-	padding: 5px; /* Добавляем небольшие отступы */
-	resize: vertical; /* Разрешаем вертикальное растяжение, но запрещаем горизонтальное */
-	height: 98px; /* Устанавливаем начальную высоту */
+	border: none;
+	/* Убираем обводку */
+	outline: none;
+	/* Убираем фокусное выделение */
+	background-color: transparent;
+	/* Делаем фон прозрачным */
+	font-size: 16px;
+	/* Устанавливаем размер шрифта */
+	color: #333;
+	/* Устанавливаем цвет текста */
+	padding: 5px;
+	/* Добавляем небольшие отступы */
+	resize: vertical;
+	/* Разрешаем вертикальное растяжение, но запрещаем горизонтальное */
+	height: 98px;
+	/* Устанавливаем начальную высоту */
 	width: 450px;
-  }
-  
+}
 
-  .option2 {
-    display: flex;
-    background-color: var(--white);
-    margin: 0 var(--standard-padding);
-    transform: translate(0, calc(1.5 * var(--standard-padding)));
-  
-  
+
+.option2 {
+	display: flex;
+	background-color: var(--white);
+	margin: 0 var(--standard-padding);
+	transform: translate(0, calc(1.5 * var(--standard-padding)));
+
+
 }
 
 
 
 .option-name {
-    background-color: var(--darklilac);
-    color: var(--lilac);
+	background-color: var(--darklilac);
+	color: var(--lilac);
 	display: grid;
 	justify-content: center;
 	flex-direction: column;
-	padding:10px 30px 10px 30px;
-	
+	padding: 10px 30px 10px 30px;
+
 }
 
 .option-text {
-    color: var(--darklilac);
-    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+	color: var(--darklilac);
+	padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
 	background-color: var(--white);
 }
 
 
-.stars1{
+.stars1 {
 	display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-row: 2;
+	justify-content: center;
+	align-items: center;
+	grid-row: 2;
 }
 
-.name-card{
+.name-card {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.circle2 {
+    position: absolute;
+    margin-left: 86vh;
+    margin-top: 13px;
+}
+
+.circle3 {
+    position: absolute;
+    margin-left: 94vh;
+    margin-top: 13px;
+
+}
+
+.box_circles {
+    box-sizing: border-box;
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    background: var(--lilac);
+    height: 100%;
+    box-shadow: var(--shadow);
+    align-content: center;
+    flex-wrap: wrap;
+    display: flex;
+	width: 102vh;
 }

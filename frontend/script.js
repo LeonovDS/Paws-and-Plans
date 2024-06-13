@@ -15,3 +15,4 @@ circle1.addEventListener('click', () => {
     // Открываем страницу "second_page.html"
     window.location.href = 'second_page.html';
 });
+
