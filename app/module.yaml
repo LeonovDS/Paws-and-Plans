@@ -1,6 +1,7 @@
 product: jvm/app
 
 dependencies:
+  - ../common
   - ../presentation
   - ../data
   - org.http4k:http4k-core:5.15.0.0
@@ -11,4 +12,6 @@ dependencies:
 
 settings:
   kotlin:
+    freeCompilerArgs:
+      - "-Xcontext-receivers"
     languageVersion: 2.0

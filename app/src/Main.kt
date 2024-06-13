@@ -5,25 +5,27 @@ import org.http4k.core.then
 import org.http4k.routing.routes
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
+import repository.AuthRepository
 
 private const val PORT = 2020
 
 fun main() {
-    val logger = org.slf4j.LoggerFactory.getLogger("Main")
-    val db = initDB()
-    val filter: Filter = Filter { handler: HttpHandler ->
+    val logger = org.slf4j.LoggerFactory.getLogger("pnp")
+    val loggingFilter = Filter { handler: HttpHandler ->
         { request: Request ->
-            logger.info("${request.method} ${request.uri}")
-            handler(request)
+            val response = handler(request)
+            logger.info("${request.method} ${request.uri} > ${response.status}")
+            response
         }
     }
-
-    filter.then(
-                    routes(
-                            templateRoutes,
-                            staticRoute,
-                    )
-            )
-            .asServer(config = Jetty(PORT))
-            .start()
+    with(logger) {
+        with(DbRepository(initDB())) {
+            loggingFilter.then(
+                routes(
+                    new.getRoutes(),
+                    staticRoute,
+                )
+            ).asServer(config = Jetty(PORT)).start()
+        }
+    }
 }

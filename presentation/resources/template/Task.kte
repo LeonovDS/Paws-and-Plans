@@ -1,5 +1,5 @@
-@import TaskData
-@import Priority
+@import data.TaskData
+@import data.Priority
 @param task: TaskData
 
 <div class="option2 card">

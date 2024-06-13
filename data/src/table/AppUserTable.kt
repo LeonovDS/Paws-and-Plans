@@ -7,7 +7,7 @@ import org.ktorm.schema.uuid
 
 internal object AppUserTable : Table<Nothing>("app_user") {
     val id = uuid("id").primaryKey()
-    val pet_name = text("pet_name")
+    val petName = text("pet_name")
     val happiness = int("happiness")
     val coins = int("coins")
     val currentPet = uuid("current_pet")

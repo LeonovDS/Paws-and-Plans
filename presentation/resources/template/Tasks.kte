@@ -1,7 +1,5 @@
-@import TasksModel
-@import Priority
-
-@param model: TasksModel
+@import data.TaskData
+@param tasks: List<TaskData>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="tasks.css">
     <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <title>Paws and Plans - Задачи</title>
 </head>
@@ -25,7 +24,7 @@
         </div>
 
         <div class="card-wrapper1 card">
-            <form id="task-editor" hx-on="submit" hx-post="/add-task" hx-swap="beforeend" hx-target="#task-list">
+            <form id="task-editor" hx-on="submit" hx-post="/tasks/create" hx-swap="beforeend" hx-target="#task-list" hx-ext="json-enc">
                 <div class="option-card1 card">
                     <div class="name-bar">
                         <div class="task_name">Название задачи</div>
@@ -42,20 +41,20 @@
                            _="on changePriority(priority) put priority into me.value">
 
                     <div class="level">
-                        <div class="easy" _="on click send changePriority(priority: 'Low') to #priority">
+                        <div class="easy" _="on click send changePriority(priority: 'LOW') to #priority">
                             <div class="stars">
                                 <img src="images/Star.svg" alt="star">
                             </div>
                             <div class="easy_t">легко+5</div>
                         </div>
-                        <div class="harder" _="on click send changePriority(priority: 'Medium') to #priority">
+                        <div class="harder" _="on click send changePriority(priority: 'MEDIUM') to #priority">
                             <div class="stars">
                                 <img src="images/Star.svg" alt="star">
                                 <img src="images/Star.svg" alt="star">
                             </div>
                             <div class="middle_t">средне+10</div>
                         </div>
-                        <div class="difficult" _="on click send changePriority(priority: 'High') to #priority">
+                        <div class="difficult" _="on click send changePriority(priority: 'HIGH') to #priority">
                             <div class="stars">
                                 <img src="images/Star.svg" alt="star">
                                 <img src="images/Star.svg" alt="star">
@@ -102,7 +101,7 @@
                     <div class="name-bar">
                         <div class="task_name2">Список задач</div>
                     </div>
-                    @for (task in model.tasks)
+                    @for (task in tasks)
                         @template.Task(task)
                     @endfor
                 </div>

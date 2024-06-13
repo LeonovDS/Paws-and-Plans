@@ -1,4 +1,4 @@
-@import IndexModel
+@import model.IndexModel
 @param model: IndexModel
 
 <!DOCTYPE html>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <title>Paws and Plans - Главная</title>
 </head>
@@ -48,15 +49,15 @@
                 </div>
                 <div class="option2 card">
                     <div class="option-name card">Имя</div>
-                    <div class="option-text card">${model.petModel.name}</div>
+                    <div class="option-text card">${model.userData.petName}</div>
                 </div>
                 <div class="option2 card">
                     <div class="option-name card">Монеты</div>
-                    <div class="option-text card">${model.petModel.coins}</div>
+                    <div class="option-text card">${model.userData.coins}</div>
                 </div>
                 <div class="option2 card">
                     <div class="option-name card">Счастье</div>
-                    <div class="option-text card">${model.petModel.happyness}</div>
+                    <div class="option-text card">${model.userData.happiness}</div>
                 </div>
             </div>
         </div>
@@ -81,12 +82,12 @@
         <div class="footer semi-card">
             <div class="name-wrapper semi-card">
                 <div class="name semi-card">
-                    ${model.petModel.name}
+                    ${model.userData.petName}
                 </div>
             </div>
             <div class="chat-wrapper semi-card">
                 <div class="chat semi-card">
-                    ${model.speech}
+                    ${model.petQuote.quote}
                 </div>
             </div>
         </div>

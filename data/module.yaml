@@ -4,7 +4,6 @@ product:
 
 dependencies:
   - ../common
-  - ../common-api
   - io.arrow-kt:arrow-core:1.2.4
   - com.zaxxer:HikariCP:5.1.0
   - org.postgresql:postgresql:42.7.3

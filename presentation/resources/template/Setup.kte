@@ -1,0 +1,22 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Paws-and-Plans: Выбери питомца</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
+</head>
+<body>
+<form hx-post="/setup" hx-ext="json-enc">
+    <h1>Paws-and-Plans</h1>
+    <h2>Выбери питомца:</h2>
+    <label for="name">Кличка питомца:</label>
+    <input id="name" type="text" name="name">
+    <label for="kind">Kind:</label>
+    <select id="kind" name="kind">
+        <option value="cat">Кот</option>
+        <option value="dog">Собака</option>
+    </select>
+    <button type="submit">Готово</button>
+</form>
+</body>
+</html>

@@ -2,6 +2,11 @@ product:
     type: lib
     platforms: [jvm]
 
+dependencies:
+    - io.arrow-kt:arrow-core:1.2.4
+
 settings:
     kotlin:
+        freeCompilerArgs:
+            - "-Xcontext-receivers"
         languageVersion: 2.0

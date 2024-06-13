@@ -3,14 +3,20 @@ product:
   platforms: [ jvm ]
 
 dependencies:
+  - ../auth
   - ../common
-  - ../common-api
   - ../domain
+  - org.slf4j:slf4j-api:2.0.13
+  - org.slf4j:slf4j-simple:2.0.13
   - io.arrow-kt:arrow-core:1.2.4
   - org.http4k:http4k-core:5.15.0.0
+  - org.http4k:http4k-format-kotlinx-serialization:5.15.0.0
   - gg.jte:jte:3.1.12
   - gg.jte:jte-kotlin:3.1.12
 
 settings:
   kotlin:
+    freeCompilerArgs:
+      - "-Xcontext-receivers"
     languageVersion: 2.0
+    serialization: json

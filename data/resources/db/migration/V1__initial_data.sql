@@ -1,4 +1,4 @@
-insert into priority(name, award) values ('low', 1), ('medium', 2), ('high', 3);
+insert into priority(name, award) values ('LOW', 1), ('MEDIUM', 2), ('HIGH', 3);
 
 insert into pet(kind, price) values ('cat', 10);
 

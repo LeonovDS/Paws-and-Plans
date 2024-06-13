@@ -4,9 +4,10 @@ product:
 
 settings:
   kotlin:
+    freeCompilerArgs:
+      - "-Xcontext-receivers"
     languageVersion: 2.0
 
 dependencies:
   - ../common
-  - ../common-api
   - io.arrow-kt:arrow-core:1.2.4
