@@ -1,11 +1,17 @@
-const words = document.querySelectorAll('.word');
+const mainLink = document.querySelector('.shop-button a');
+const overlay = document.getElementById('overlay');
+const popup = document.querySelector('.pop-up');
 
-words.forEach(word => {
-  word.addEventListener('click', () => {
-    const tooltip = word.querySelector('.tooltip');
-    tooltip.style.display = 'block';
-  });
+mainLink.addEventListener('click', () => {
+  overlay.style.display = 'block';
+  popup.style.display = 'block';
 });
+
+overlay.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  popup.style.display = 'none';
+});
+
 
 // Получаем элемент с классом "circle1"
 const circle1 = document.querySelector('.circle1');

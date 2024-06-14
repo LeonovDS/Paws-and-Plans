@@ -12,16 +12,17 @@
 
     --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 @font-face {
-	font-family: 'avenirnextcyr';
-	src: url('fonts/avenirnextcyr-thin.eot');
-	src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
-		 url('fonts/avenirnextcyr-thin.woff') format('woff'),
-		 url('fonts/avenirnextcyr-thin.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-  }
+    font-family: 'avenirnextcyr';
+    src: url('fonts/avenirnextcyr-thin.eot');
+    src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
+        url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+        url('fonts/avenirnextcyr-thin.woff') format('woff'),
+        url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {
     margin: 0;
@@ -74,6 +75,7 @@ a:active {
     grid-template-rows: auto 1fr 1fr auto;
     background: var(--white);
 }
+
 
 .header {
     grid-column: 1/3;
@@ -134,8 +136,9 @@ a:active {
     background: var(--darklilac);
     padding: var(--standard-padding);
     box-shadow: var(--shadow);
-    width: fit-content;
-    margin-left: 110px;
+    width: 32%;
+    margin-left: 25%;
+    height: 70%;
 }
 
 .shop-button1 {
@@ -151,6 +154,26 @@ a:active {
     grid-row: 2/4;
     background: white;
     box-shadow: var(--shadow);
+    background-size: cover;
+    /* Сжимает изображение, чтобы оно полностью заполняло контейнер */
+    background-position: center;
+    /* Выравнивает изображение по центру контейнера */
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.image {
+    
+    max-width: 50%;
+    max-height: 50%;
+    object-fit: contain;
 }
 
 .card-wrapper {
@@ -176,7 +199,7 @@ a:active {
     height: 100%;
 }
 
-.pop-up-card{
+.pop-up-card {
     display: flex;
     flex-direction: column;
     gap: calc(2 * var(--standard-padding));
@@ -186,20 +209,20 @@ a:active {
     margin-top: 50px;
 }
 
-.pop-up-option{
+.pop-up-option {
     display: flex;
     background-color: var(--white);
     margin: 0 var(--standard-padding);
     transform: translate(0, calc(1.5 * var(--standard-padding)));
 }
 
-.pop-up-name{
+.pop-up-name {
     background-color: var(--darklilac);
     color: var(--lilac);
     padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
 }
 
-.pop-up-text{
+.pop-up-text {
     color: var(--darklilac);
     padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
     background-color: var(--white);
@@ -335,10 +358,11 @@ a:active {
     padding: 15px;
     background-color: var(--darklilac);
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    display: none;
+    transform: translate(-50%, -50%);
     margin: auto;
     border-radius: 37px;
     box-shadow: var(--shadow);
@@ -401,25 +425,22 @@ a:active {
 .button_b {
     width: 15vw;
     height: 4vh;
-    text-align: center;
     padding: 0.5rem;
-    /* Отступы 0.5 rem (относительная единица) */
     background-color: var(--white);
     border-radius: 40px;
     box-shadow: var(--shadow);
-    display: flex;
+    display: grid;
     position: relative;
-    /* Изменено на relative для адаптивности */
-    margin-top: 66vh;
+    margin-top: 64vh;
     margin-left: 15vh;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .button-name {
     color: var(--darklilac);
-    padding-left: 65px;
     padding-top: 5px;
     padding-bottom: 5px;
-
+    grid-column: 2;
 }
 
 .add_new {
@@ -444,6 +465,10 @@ a:active {
     grid-row: 1;
     margin-left: 35px;
     margin-top: 40px;
+    background-size: cover;
+    /* Сжимает изображение, чтобы оно полностью заполняло контейнер */
+    background-position: center;
+    /* Выравнивает изображение по центру контейнера */
 }
 
 .item2 {
@@ -455,6 +480,10 @@ a:active {
     grid-row: 1;
     margin-right: 15px;
     margin-top: 40px;
+    background-size: cover;
+    /* Сжимает изображение, чтобы оно полностью заполняло контейнер */
+    background-position: center;
+    /* Выравнивает изображение по центру контейнера */
 }
 
 .item3 {
@@ -466,6 +495,10 @@ a:active {
     grid-row: 2;
     margin-left: 35px;
     margin-top: 40px;
+    background-size: cover;
+    /* Сжимает изображение, чтобы оно полностью заполняло контейнер */
+    background-position: center;
+    /* Выравнивает изображение по центру контейнера */
 }
 
 .item4 {
@@ -477,6 +510,10 @@ a:active {
     grid-row: 2;
     margin-right: 15px;
     margin-top: 40px;
+    background-size: contain;
+    /* Сжимает изображение, чтобы оно полностью заполняло контейнер */
+    background-position: center;
+    /* Выравнивает изображение по центру контейнера */
 }
 
 .pop-up_header {
@@ -501,41 +538,58 @@ a:active {
 
 }
 
-.divider{
+.divider {
     position: absolute;
     margin-left: 50px;
     padding-top: 22px;
 
 }
 
-.divider_2{
+.divider_2 {
     position: absolute;
     margin-left: 37px;
     padding-top: 22px;
 }
 
-.pop-up-header{
+.pop-up-header {
     height: 30vh;
-	display: flex;
-  	flex-direction: column;
-	background-color: var(--white);
-	border-radius: 19px 19px 45px 45px;
-	box-shadow: var(--shadow);
-	gap: calc(2 * var(--standard-padding));
-	margin-top: 20px;
-	margin-left: 2.2%;
-	margin-right: 2.2%;
+    display: grid;
+    flex-direction: column;
+    background-color: var(--white);
+    border-radius: 19px 19px 45px 45px;
+    box-shadow: var(--shadow);
+    gap: calc(2* var(--standard-padding));
+    margin-top: 20px;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+    background-size: cover;
+    background-position: center;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
 }
 
-.pet-chose{
-    padding: 0px;
-	background-color: var(--darklilac);
-	color: var(--lilac);
-	border-radius: 45px;
-	padding:4px 4px 4px 6px;
+.image-box{
+    width: 18vh;
+    height: 24vh;
+    background-color: var(--white);
+    border-radius: 37px;
+    grid-column: 2;
+    grid-row: 2;
+    margin-left: 10%;
+    margin-bottom: 40px;
+    background-size: cover;
+    background-position: center;
 }
 
-.save-button-wrapper{
+
+.pet-chose {
+    background-color: var(--darklilac);
+    color: var(--lilac);
+    border-radius: 45px;
+    padding: 4px 4px 4px 6px;
+    grid-column: 1 / 4;
+}
+
+.save-button-wrapper {
     grid-column: 3;
     grid-row: 1;
     background: var(--darklilac);
@@ -545,7 +599,7 @@ a:active {
     padding: 8px 24px 8px 8px;
 }
 
-.save-button{
+.save-button {
     padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
     background: var(--lilac);
     color: var(--blue);
@@ -555,3 +609,25 @@ a:active {
     align-items: center;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.723);
+    z-index: 998;
+    display: none;
+}
+
+.arrow{
+    grid-column: 1;
+    margin-top: 70%;
+    margin-right: 40%;
+}
+
+.arrow1{
+    grid-column: 3;
+    margin-top: 70%;
+    margin-left: 40%;
+}

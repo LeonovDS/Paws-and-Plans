@@ -1,0 +1,201 @@
+:root {
+    --blocks-margin: 16px;
+    --blocks-border-radius: 48px;
+    --standard-padding: 8px;
+    --standard-vertical-text-padding: 4px;
+    --standard-horizontal-text-padding: 8px;
+
+    --lilac: #BABDE2;
+    --darklilac: #374375;
+    --blue: #000950;
+    --white: #F5F5F5;
+
+    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@font-face {
+    font-family: 'avenirnextcyr';
+    src: url('fonts/avenirnextcyr-thin.eot');
+    src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
+        url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+        url('fonts/avenirnextcyr-thin.woff') format('woff'),
+        url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: 1.2rem 'avenirnextcyr';
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: #374375;
+}
+
+a:visited {
+    color: #000950;
+}
+
+a:hover {
+    color: #374375;
+}
+
+a:active {
+    color: #374375;
+}
+
+
+.wrapper {
+    height: 100vh;
+}
+
+.card {
+    border-radius: var(--blocks-border-radius);
+}
+
+.semi-card {
+    border-radius: 0 var(--blocks-border-radius) var(--blocks-border-radius) 0;
+}
+
+.container {
+    display: grid;
+    height: 100%;
+    gap: var(--blocks-margin);
+    padding: var(--blocks-margin);
+    box-sizing: border-box;
+    background: var(--lilac);
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 9fr;
+}
+
+.logo-text {
+    color: var(--darklilac);
+    align-items: center;
+    grid-row: 1;
+    grid-column: 2;
+    font-size: xxx-large;
+    display: flex;
+    justify-content: center;
+    /* центрирует текст по горизонтали */
+    align-items: center;
+    /* центрирует текст по вертикали */
+}
+
+.card-wrapper{
+    grid-column: 2;
+    padding: calc(2 * var(--standard-padding)) calc(2 * var(--standard-padding));
+    background-color: var(--darklilac);
+    box-shadow: var(--shadow);
+    height: 60vh;
+}
+
+.option-card{
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--standard-padding));
+    background: var(--lilac);
+    height: 100%;
+}
+
+.header {
+    display: grid;
+    background-color: var(--white);
+    margin: 1 var(--standard-padding) 0;
+    transform: translate(0, calc(0 * var(--standard-padding)));
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.regestration {
+    grid-column: 1;
+    background-color: var(--darklilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.regestration1 {
+    grid-column: 2;
+    background-color: var(--white);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.regestration-text{
+    color: var(--lilac);
+    grid-column: 2;
+}
+
+.regestration-text1{
+    color: var(--darklilac);
+    grid-column: 2;
+    margin-right: 5%;
+   
+}
+
+.option-back {
+    display: flex;
+    background-color: var(--white);
+    margin: 1 var(--standard-padding) 0;
+    transform: translate(0, calc(0 * var(--standard-padding)));
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+
+.option-front {
+    background-color: var(--darklilac);
+    padding: var(--standard-vertical-text-padding) var(--standard-horizontal-text-padding);
+    width: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.option-text{
+    color: var(--lilac); 
+    grid-column: 2;
+}
+
+.button-back {
+    display: grid;
+    background-color: var(--darklilac);
+    margin: 1 var(--standard-padding) 0;
+    transform: translate(0, calc(0 * var(--standard-padding)));
+    width: 50%;
+    height: 12%;
+    margin-left: 25%;
+    margin-top: 10%;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.button-front {
+    background-color: var(--lilac);
+    display: grid;
+    grid-template-columns: 1% 1fr 1%;
+    grid-column: 2;
+    padding: 1px 30px 2px 30px;
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.button-text{
+    color: var(--darklilac); 
+    grid-column: 2;
+    margin-top: 4%;
+}
