@@ -1,0 +1,22 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Build with Gradle
+        run: ./gradlew :app:build
+      - name: Deploy
+        run: sh ./scripts/deploy.sh
+        env:
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          REGISTRY_ID: ${{ secrets.REGISTRY_ID }}
