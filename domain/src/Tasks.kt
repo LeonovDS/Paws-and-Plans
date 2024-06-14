@@ -2,6 +2,7 @@ import arrow.core.Either
 import arrow.core.raise.either
 import data.Id
 import data.TaskData
+import model.TaskModel
 import model.TasksModel
 import repository.IPetRepository
 import repository.ITaskRepository
@@ -27,9 +28,9 @@ fun getTasks(taskId: UUID): Either<DomainError, TasksModel> = either {
 }
 
 context(Id, ITaskRepository)
-fun create(data: TaskData): Either<DomainError, TaskData> = either {
+fun create(data: TaskData): Either<DomainError, TaskModel> = either {
     val taskId = createTask(taskData = data).bind()
-    getTask(taskId).bind()
+    TaskModel(getTask(taskId).bind())
 }
 
 context(Id, ITaskRepository, IUserRepository, IPetRepository)

@@ -3,6 +3,7 @@ import arrow.core.raise.either
 import arrow.core.right
 import data.Id
 import data.UserData
+import model.SignInModel
 import repository.IAuthRepository
 import repository.IPetRepository
 import repository.IUserRepository
@@ -15,7 +16,7 @@ fun String.encrypt(): String {
 }
 
 context(IAuthRepository, IUserRepository, IPetRepository)
-fun signUp(data: SignUpData): Either<DomainError, Unit> = either {
+fun signUp(data: SignUpData): Either<DomainError, SignInModel> = either {
     val id = createAuthData(data.copy(password = data.password.encrypt())).bind()
     with(Id(id)) {
         createUser(
@@ -28,7 +29,7 @@ fun signUp(data: SignUpData): Either<DomainError, Unit> = either {
         ).bind()
     }
     addPetInPossession(id, data.petId).bind()
-    Unit.right()
+    SignInModel
 }
 
 context(IAuthRepository)

@@ -1,4 +1,4 @@
-@import model.Pet
+@import data.Pet
 @param pet: Pet
 
 <div class="item" hx-on="click" hx-target=".pop-up-background"

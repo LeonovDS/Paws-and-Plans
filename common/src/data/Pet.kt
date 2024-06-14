@@ -1,4 +1,4 @@
-package model
+package data
 
 import java.util.*
 
@@ -9,8 +9,4 @@ data class Pet(
     val image: String,
     val isSelected: Boolean,
     val isOwned: Boolean,
-)
-
-data class ShopModel(
-    val pets: List<Pet>
 )

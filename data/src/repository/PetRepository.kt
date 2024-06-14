@@ -10,7 +10,6 @@ import arrow.core.right
 import data.PetData
 import data.PetImage
 import data.PetQuote
-import model.Pet
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import table.PetImageTable

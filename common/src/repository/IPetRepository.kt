@@ -5,7 +5,6 @@ import arrow.core.Either
 import data.PetData
 import data.PetImage
 import data.PetQuote
-import model.Pet
 import java.util.*
 
 interface IPetRepository {

@@ -8,6 +8,7 @@ import gg.jte.ContentType
 import gg.jte.TemplateEngine
 import gg.jte.output.StringOutput
 import gg.jte.resolve.ResourceCodeResolver
+import model.Model
 import org.http4k.core.HttpHandler
 import org.http4k.core.Request
 import org.http4k.core.Response
@@ -43,15 +44,19 @@ internal val authLens =
         ).required("id")
 
 context(Logger, IMultiRepository)
-internal fun <T, R> makeRoute(
-    parseRequest: (Request) -> Either<DomainError, T>,
-    domain: context(Id, IMultiRepository)(T) -> Either<DomainError, R>,
-    templateName: String,
+internal fun makeUserlessRoute(
+    domain: context(Logger, IMultiRepository)(Request) -> Either<DomainError, Model>,
 ): HttpHandler = { request ->
-    parseRequest(request)
-        .flatMap {
-            domain(authLens(request), this@IMultiRepository, it)
-        }
-        .flatMap { getTemplateEngine().renderTemplate(templateName, it) }
+    domain(this@Logger, this@IMultiRepository, request)
+        .flatMap { getTemplateEngine().renderTemplate(it.template, it) }
         .fold(::respondError, ::respondSuccess)
 }
+
+context(Logger, IMultiRepository)
+internal fun makeRoute(
+    domain: context(Id, Logger, IMultiRepository)(Request) -> Either<DomainError, Model>,
+): HttpHandler = makeUserlessRoute {
+    domain(authLens(it), this@Logger, this@IMultiRepository, it)
+}
+
+

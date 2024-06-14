@@ -3,8 +3,7 @@ import arrow.core.raise.either
 import arrow.core.raise.ensure
 import data.Id
 import data.PetData
-import model.IndexModel
-import model.Pet
+import data.Pet
 import model.ShopModel
 import repository.IPetRepository
 import repository.IUserRepository
@@ -38,7 +37,7 @@ fun buyPet(petId: UUID): Either<DomainError, ShopModel> = either {
 }
 
 context(Id, IUserRepository, IPetRepository)
-fun selectPet(petId: UUID): Either<DomainError, PetData> = either {
+fun selectPet(petId: UUID): Either<DomainError, ShopModel> = either {
     setPet(petId).bind()
-    getPet(petId).bind()
+    getShop().bind()
 }
