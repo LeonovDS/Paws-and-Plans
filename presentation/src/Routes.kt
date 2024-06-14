@@ -1,23 +1,7 @@
-package new
-
-import Auth
-import SignInData
-import SignUpData
-import SqlError
 import arrow.core.flatMap
-import arrow.core.right
-import buyPet
-import completeTaskDomain
-import create
 import data.Id
 import data.Priority
 import data.TaskData
-import deleteTaskDomain
-import getIndex
-import getPetSamples
-import getShop
-import getTasks
-import getTemplateEngine
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import model.SignInModel
@@ -34,13 +18,7 @@ import org.http4k.routing.bind
 import org.http4k.routing.path
 import org.http4k.routing.routes
 import org.slf4j.Logger
-import renderTemplate
 import repository.*
-import respondError
-import respondSuccess
-import selectPet
-import signUp
-import validateUser
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

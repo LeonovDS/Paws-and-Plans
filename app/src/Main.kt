@@ -5,7 +5,6 @@ import org.http4k.core.then
 import org.http4k.routing.routes
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
-import repository.AuthRepository
 
 private const val PORT = 2020
 
@@ -22,7 +21,7 @@ fun main() {
         with(DbRepository(initDB())) {
             loggingFilter.then(
                 routes(
-                    new.getRoutes(),
+                    getRoutes(),
                     staticRoute,
                 )
             ).asServer(config = Jetty(PORT)).start()
