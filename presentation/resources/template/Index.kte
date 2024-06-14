@@ -21,11 +21,11 @@
                     Главная страница
                     <a href="/tasks">
                         <div class="circle">
-                            <img src="images/circle_white.svg" alt="star">
+                            <img src="/images/circle_white.svg" alt="star">
                         </div>
                     </a>
                     <div class="circle1">
-                        <img src="images/circle_lilac.svg" alt="star">
+                        <img src="/images/circle_lilac.svg" alt="star">
                     </div>
                 </div>
             </div>
@@ -67,14 +67,16 @@
                     <div class="option-name card">Текущие задачи</div>
                 </div>
                 @for ((i, task) in model.tasks.withIndex())
-                    <div class="option2 card">
-                        <div class="option-name card">${i + 1}</div>
-                        <div class="option-text card">${task.name}</div>
-                    </div>
+                    <a hx-boost href="/tasks/${task.id?.toString() ?: "no id"}">
+                        <div class="option2 card">
+                            <div class="option-name card">${i + 1}</div>
+                            <div class="option-text card">${task.name}</div>
+                        </div>
+                    </a>
                 @endfor
-                <a href="/tasks">
+                <a hx-boost href="/tasks">
                     <div class="add_new">
-                        <img src="images/plus.svg" alt="star">
+                        <img src="/images/plus.svg" alt="star">
                     </div>
                 </a>
             </div>

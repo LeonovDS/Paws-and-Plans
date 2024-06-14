@@ -8,10 +8,14 @@ import SignUpData
 import SqlError
 import arrow.core.flatMap
 import arrow.core.partially1
+import buyPet
+import completeTaskDomain
 import create
 import data.Priority
 import data.TaskData
+import deleteTaskDomain
 import getIndex
+import getShop
 import getTasks
 import getTemplateEngine
 import kotlinx.serialization.SerialName
@@ -26,6 +30,7 @@ import org.http4k.format.KotlinxSerialization.auto
 import org.http4k.lens.Header
 import org.http4k.routing.RoutingHttpHandler
 import org.http4k.routing.bind
+import org.http4k.routing.path
 import org.http4k.routing.routes
 import org.http4k.routing.sse.bind
 import org.slf4j.Logger
@@ -155,6 +160,35 @@ internal fun `GET tasks`(): RoutingHttpHandler = "/tasks" bind Method.GET to { r
     }
 }
 
+context(Logger, ITaskRepository)
+internal fun `GET tasks|{id}`(): RoutingHttpHandler = "/tasks/{id}" bind Method.GET to { request: Request ->
+    with(authLens(request)) {
+        val taskId = UUID.fromString(request.path("id"))
+        getTasks(taskId).flatMap {
+            intTemplateEngine.renderTemplate("Tasks.kte", it)
+        }.fold(::respondError, ::respondSuccess)
+    }
+}
+
+context(Logger, IUserRepository, IPetRepository)
+internal fun `GET shop`(): RoutingHttpHandler = "/shop" bind Method.GET to { request: Request ->
+    with(authLens(request)) {
+        getShop().flatMap {
+            getTemplateEngine().renderTemplate("Shop.kte", it)
+        }.fold(::respondError, ::respondSuccess)
+    }
+}
+
+context(Logger, IUserRepository, IPetRepository)
+internal fun `POST shop|{id}|buy`(): RoutingHttpHandler = "/shop/{id}/buy" bind Method.POST to { request: Request ->
+    with(authLens(request)) {
+        val petId = UUID.fromString(request.path("id"))
+        buyPet(petId).flatMap {
+            getTemplateEngine().renderTemplate("Shop.kte", it)
+        }.fold(::respondError, ::respondSuccess)
+    }
+}
+
 @Serializable
 data class CreateTask(
     @SerialName("taskInput")
@@ -189,6 +223,21 @@ internal fun `POST tasks|create`(): RoutingHttpHandler = "/tasks/create" bind Me
     }
 }
 
+context(Logger, ITaskRepository, IUserRepository)
+internal fun `DELETE tasks|{id}`(): RoutingHttpHandler = "/tasks/{id}" bind Method.DELETE to { request: Request ->
+    with(authLens(request)) {
+        val taskId = UUID.fromString(request.path("id"))
+        deleteTaskDomain(taskId).flatMap{ intTemplateEngine.renderTemplate("Tasks.kte", it) }.fold(::respondError, ::respondSuccess)
+    }
+}
+context(Logger, ITaskRepository, IUserRepository)
+internal fun `POST tasks|{id}|complete`(): RoutingHttpHandler = "/tasks/{id}/complete" bind Method.POST to { request: Request ->
+    with(authLens(request)) {
+        val taskId = UUID.fromString(request.path("id"))
+        completeTaskDomain(taskId).flatMap{ intTemplateEngine.renderTemplate("Tasks.kte", it) }.fold(::respondError, ::respondSuccess)
+    }
+}
+
 context(Logger, IMultiRepository)
 fun getRoutes(): RoutingHttpHandler =
     routes(
@@ -201,17 +250,20 @@ fun getRoutes(): RoutingHttpHandler =
                 `GET setup`,
                 `POST setup`(),
                 `GET |`(),
-                "/shop" bind Method.GET to ::placeholder,
+                `GET shop`(),
+                `POST shop|{id}|buy`(),
                 "/shop" bind Method.POST to ::placeholder,
                 "/settings" bind Method.GET to ::placeholder,
                 "/settings" bind Method.POST to ::placeholder,
 
                 `GET tasks`(),
+                `GET tasks|{id}`(),
                 "/task" bind Method.GET to ::placeholder,
                 `POST tasks|create`(),
+                `DELETE tasks|{id}`(),
+                `POST tasks|{id}|complete`(),
                 "/task/update" bind Method.POST to ::placeholder,
                 "/task/cancel" bind Method.GET to ::placeholder,
-                "/task/complete" bind Method.GET to ::placeholder
             )
         )
 

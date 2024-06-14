@@ -10,6 +10,7 @@ import arrow.core.right
 import data.PetData
 import data.PetImage
 import data.PetQuote
+import model.Pet
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import table.PetImageTable
@@ -32,6 +33,14 @@ class PetRepository(private val db: Database) : IPetRepository {
     }) {
         SqlError(it).left()
     }
+
+    override fun getPet(petId: UUID): Either<DomainError, PetData> = catch({
+        db.from(PetTable).select().where(PetTable.id eq petId).map(::toPetData).firstOrNull()?.right()
+            ?: NotFound.left()
+    }) {
+        SqlError(it).left()
+    }
+
 
     override fun getQuotes(petId: UUID): Either<DomainError, List<PetQuote>> = catch({
         db.from(PetQuoteTable).select().where(PetQuoteTable.petId eq petId).map {
@@ -70,6 +79,14 @@ class PetRepository(private val db: Database) : IPetRepository {
             set(PossessionTable.petId, petId)
         }
         Unit.right()
+    }) {
+        SqlError(it).left()
+    }
+
+    override fun getPetsInPossession(userId: UUID): Either<DomainError, List<UUID>> = catch({
+        db.from(PossessionTable).select().where(PossessionTable.ownerId eq userId).map {
+            it[PossessionTable.petId]!!
+        }.right()
     }) {
         SqlError(it).left()
     }

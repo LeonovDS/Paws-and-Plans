@@ -1,0 +1,76 @@
+@import data.Priority
+@import data.TaskData
+@param currentTask: TaskData?
+
+<form id="task-editor" hx-on="submit" hx-post="/tasks/${currentTask?.id?.toString() ?: "create"}" hx-swap="beforeend"
+      hx-target="#task-list"
+      hx-ext="json-enc" _="on htmx:afterRequest reset() me">
+    <div class="option-card1 card">
+        <div class="name-bar">
+            <div class="task_name">Название задачи</div>
+            <div class="text_input">
+                <input type="text" id="taskInput" name="taskInput" placeholder="Enter task name"
+                       value="${currentTask?.name}">
+            </div>
+        </div>
+
+        <div class="name-bar2">
+            <div class="task_name">Задача</div>
+            <textarea class="description" type="text" id="description" name="descriptionInput"
+                      placeholder="Description">
+                ${currentTask?.description ?: ""}
+            </textarea>
+        </div>
+        <input type="hidden" id="priority" name="priorityInput" value="${currentTask?.priority?.toString() ?: "MEDIUM"}"
+               _="on changePriority(priority) put priority into me.value">
+
+        <div class="level">
+            @for ((i, priority) in Priority.entries.withIndex())
+                !{val pName = priority.name}
+                !{val names = listOf("легко+5", "средне+10", "тяжело+15")}
+                <div class="${pName.lowercase()}" _="on click send changePriority(priority: '${pName}') to #priority">
+                    <div class="stars">
+                        @for (j in 0..i)
+                            <img src="/images/Star.svg" alt="star">
+                        @endfor
+                    </div>
+                    <div class="${pName.lowercase()}_t">${names[i]}</div>
+                </div>
+            @endfor
+        </div>
+        <div class="date">
+            <div class="task_name3">дата</div>
+            <input type="date" name="deadlineDateInput" class="form" id="start"
+                   value="${currentTask?.deadline?.toLocalDate()?.toString()}"/>
+        </div>
+        <div class="date">
+            <div class="task_name3">время</div>
+            <input type="time" name="deadlineTimeInput" class="form" id="appt" name="appt"
+                   value="${currentTask?.deadline?.toLocalTime()?.toString()}"/>
+        </div>
+
+        <div class="add">
+            <div class="delete"
+                 hx-delete="/tasks/${currentTask?.id?.toString() ?: "no id"}" hx-swap="outerhtml"
+                 hx-target="#task-editor" hx-select="#task-editor">
+                <img src="/images/x.svg" class="cancel" alt="star">
+                <div class="add_t">удалить</div>
+            </div>
+
+            <button class="add_task" type="submit" _="">
+                <img src="/images/plus.svg" class="cancel" alt="star">
+                <div class="add_t">добавить</div>
+            </button>
+        </div>
+
+        <input type="hidden" name="isCompletedInput" id="isCompleted" value="false"/>
+
+        <div class="wrapper">
+            <div class="done" hx-on="click" hx-post="/tasks/${currentTask?.id?.toString() ?: "no id"}/complete"
+                 hx-target="#task-editor" hx-select="#task-editor" hx-swap="outerHTML">
+                <img src="/images/check.svg" class="cancel" alt="star">
+                <div class="add_t">Выполнить</div>
+            </div>
+        </div>
+    </div>
+</form>

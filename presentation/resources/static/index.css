@@ -383,8 +383,8 @@ a:active {
     border-radius: 37px;
     box-shadow: var(--shadow);
     display: grid;
-    grid-template-columns: 1fr 0.5fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr auto;
 }
 
 .pop-up_mini1 {
@@ -416,18 +416,21 @@ a:active {
     border-radius: 40px;
     box-shadow: var(--shadow);
     display: flex;
-    position: relative;
+    grid-column: 1 / span 2;
+    place-self: center;
+    place-content: center;
+  /*  position: relative;
     /* Изменено на relative для адаптивности */
-    margin-top: 66vh;
-    margin-left: 15vh;
+ /*   margin-top: 66vh;
+    margin-left: 15vh;*/
 }
 
 .button-name {
     color: var(--darklilac);
-    padding-left: 65px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-
+    height: fit-content;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .add_new {
@@ -489,7 +492,7 @@ a:active {
 
 .pop-up_header {
     grid-row: 1;
-    grid-column: 1;
+    grid-column: 1 / span 2;
 }
 
 .pop-up_header {

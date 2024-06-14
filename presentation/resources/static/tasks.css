@@ -194,7 +194,7 @@ body {
 }
 
 
-.easy{
+.low{
   flex-direction: column;
 	padding:10px 10px 10px 10px;
 	background-color: var(--white);
@@ -203,7 +203,7 @@ body {
 	gap: calc(2 * var(--standard-padding));
 	
 }
-.harder{
+.medium{
   flex-direction: column;
 	padding:10px 10px 10px 10px;
 	background-color: var(--white);
@@ -212,7 +212,7 @@ body {
 	gap: calc(2 * var(--standard-padding));
 
 }
-.difficult{
+.high{
   flex-direction: column;
 	padding:10px 10px 10px 10px;
 	background-color: var(--white);
@@ -227,17 +227,17 @@ body {
 }
 
 
-.easy_t{
+.low_t{
 	display: flex;
   justify-content: center;
   align-items: center;
 }
-.middle_t{
+.medium_t{
 	display: flex;
   justify-content: center;
   align-items: center;
 }
-.hard_t{
+.high_t{
 	display: flex;
   justify-content: center;
   align-items: center;

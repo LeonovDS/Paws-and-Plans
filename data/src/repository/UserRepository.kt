@@ -53,4 +53,23 @@ class UserRepository(private val db: Database) : IUserRepository {
         SqlError(it).left()
     }
 
+    context(Id) override fun updateCoins(newCoins: Int): Either<DomainError, Unit> = catch({
+        db.update(AppUserTable) {
+            set(AppUserTable.coins, newCoins)
+            where { AppUserTable.id eq id }
+        }
+        Unit.right()
+    }) {
+        SqlError(it).left()
+    }
+
+    context(Id) override fun updateHappiness(newHappiness: Int): Either<DomainError, Unit> = catch({
+        db.update(AppUserTable) {
+            set(AppUserTable.happiness, newHappiness)
+            where { AppUserTable.id eq id }
+        }
+        Unit.right()
+    }) {
+        SqlError(it).left()
+    }
 }

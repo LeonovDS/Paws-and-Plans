@@ -1,5 +1,6 @@
 @import data.TaskData
-@param tasks: List<TaskData>
+@import model.TasksModel
+@param model: TasksModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="tasks.css">
     <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<link rel="stylesheet" href="/tasks.css">
 <div class="wrapper">
     <div class="container">
         <div class="header semi-card">
@@ -24,84 +25,15 @@
         </div>
 
         <div class="card-wrapper1 card">
-            <form id="task-editor" hx-on="submit" hx-post="/tasks/create" hx-swap="beforeend" hx-target="#task-list" hx-ext="json-enc">
-                <div class="option-card1 card">
-                    <div class="name-bar">
-                        <div class="task_name">Название задачи</div>
-                        <div class="text_input">
-                            <input type="text" id="taskInput" name="taskInput" placeholder="Enter task name">
-                        </div>
-                    </div>
-
-                    <div class="name-bar2">
-                        <div class="task_name">Задача</div>
-                        <textarea class="description" type="text" id="description" name="descriptionInput" placeholder="Description"></textarea>
-                    </div>
-                    <input type="hidden" id="priority" name="priorityInput" value="Medium"
-                           _="on changePriority(priority) put priority into me.value">
-
-                    <div class="level">
-                        <div class="easy" _="on click send changePriority(priority: 'LOW') to #priority">
-                            <div class="stars">
-                                <img src="images/Star.svg" alt="star">
-                            </div>
-                            <div class="easy_t">легко+5</div>
-                        </div>
-                        <div class="harder" _="on click send changePriority(priority: 'MEDIUM') to #priority">
-                            <div class="stars">
-                                <img src="images/Star.svg" alt="star">
-                                <img src="images/Star.svg" alt="star">
-                            </div>
-                            <div class="middle_t">средне+10</div>
-                        </div>
-                        <div class="difficult" _="on click send changePriority(priority: 'HIGH') to #priority">
-                            <div class="stars">
-                                <img src="images/Star.svg" alt="star">
-                                <img src="images/Star.svg" alt="star">
-                                <img src="images/Star.svg" alt="star">
-                            </div>
-                            <div class="hard_t">сложно+15</div>
-                        </div>
-                    </div>
-                    <div class="date">
-                        <div class="task_name3">дата</div>
-                        <input type="date" name="deadlineDateInput" class="form" id="start"/>
-                    </div>
-                    <div class="date">
-                        <div class="task_name3">время</div>
-                        <input type="time" name="deadlineTimeInput" class="form" id="appt" name="appt"/>
-                    </div>
-
-                    <div class="add">
-                        <button class="delete" _="on click reset() the #task-editor">
-                            <img src="images/x.svg" class="cancel" alt="star">
-                            <div class="add_t">удалить</div>
-                        </button>
-
-                        <button class="add_task" type="submit">
-                            <img src="images/plus.svg" class="cancel" alt="star">
-                            <div class="add_t">добавить</div>
-                        </button>
-                    </div>
-
-                    <input type="hidden" name="isCompletedInput" id="isCompleted" value="false"/>
-
-                    <div class="wrapper">
-                        <div class="done">
-                            <img src="images/check.svg" class="cancel" alt="star">
-                            <div class="add_t">Выполнить</div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            @template.TaskForm(model.currentTask)
         </div>
         <div class="card-wrapper2 card">
             <div class="option-card2 card">
-                <div id="task-list" class="option-card1 card">
+                <div id="task-list" class="option-card1 card" hx-swap-oob="outerHTML:#task-list">
                     <div class="name-bar">
                         <div class="task_name2">Список задач</div>
                     </div>
-                    @for (task in tasks)
+                    @for (task in model.tasks)
                         @template.Task(task)
                     @endfor
                 </div>

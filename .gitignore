@@ -4,3 +4,4 @@
 gradle
 .kotlin
 **/jte-classes
+.env
