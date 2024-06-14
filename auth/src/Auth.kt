@@ -4,10 +4,10 @@ import java.time.Instant
 import java.util.*
 
 class Auth {
-    private val algorithm = Algorithm.HMAC256("temp_secret") //todo: get from config
+    private val algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET") ?: "secret")
     private val jwtVerifier = JWT.require(algorithm)
         .withIssuer("paws-and-plans")
-        .build() //todo: get from config
+        .build()
 
     fun createAuthToken(id: UUID): String = JWT.create()
         .withSubject("paws-and-plans")

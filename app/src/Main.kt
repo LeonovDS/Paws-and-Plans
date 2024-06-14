@@ -9,6 +9,7 @@ import org.http4k.server.asServer
 private const val PORT = 2020
 
 fun main() {
+    val port = System.getenv("PORT")?.toIntOrNull() ?: PORT
     val logger = org.slf4j.LoggerFactory.getLogger("pnp")
     val loggingFilter = Filter { handler: HttpHandler ->
         { request: Request ->
@@ -24,7 +25,7 @@ fun main() {
                     getRoutes(),
                     staticRoute,
                 )
-            ).asServer(config = Jetty(PORT)).start()
+            ).asServer(config = Jetty(port)).start()
         }
     }
 }

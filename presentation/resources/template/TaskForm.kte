@@ -89,7 +89,7 @@
             @else
                 <div class="add_t"
                      hx-on="click"
-                     hx-post="/tasks/create"
+                     hx-post="/tasks"
                      hx-swap="afterend"
                      hx-target="#task-name-bar"
                      hx-include="#task-editor" hx-ext="json-enc"
