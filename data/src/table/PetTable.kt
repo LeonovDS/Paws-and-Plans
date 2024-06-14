@@ -8,6 +8,6 @@ import org.ktorm.schema.varchar
 internal object PetTable : Table<Nothing>("pet") {
     val id = uuid("id").primaryKey()
     val kind = varchar("kind")
+    val kindTranslation = varchar("kind_translation")
     val price = int("price")
-    // TODO: Add pet kind translation
 }

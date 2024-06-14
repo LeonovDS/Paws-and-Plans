@@ -6,24 +6,13 @@
         <div class="pop-up_mini">
             <div class="pop-up_header">Магазин</div>
             @for(pet in model.pets)
-                <div class="item" hx-on="click" hx-target=".pop-up-background"
-                     hx-swap="${if (pet.isSelected) null else "delete"}" hx-post="${
-                when {
-                    pet.isSelected -> "/"
-                    pet.isOwned -> "/pets/${pet.id}/select"
-                    else -> "/pets/${pet.id}/buy"
-                }
-                }">
-                    <img src="${pet.image}" alt="${pet.image}">
-                    <div class="item_name">${pet.kind}</div>
-                    @if(pet.isSelected)
-                        <div class="item_select">Выбрано</div>
-                    @elseif(pet.isOwned)
-                        <div class="item_select">Выбрать</div>
-                    @else
-                        <div class="item_price">Купить за ${pet.price} монет</div>
-                    @endif
-                </div>
+                @if(pet.isSelected)
+                    @template.shop.SelectedPet(pet = pet)
+                @elseif(pet.isOwned)
+                    @template.shop.OwnedPet(pet = pet)
+                @else
+                    @template.shop.OtherPet(pet = pet)
+                @endif
             @endfor
             <div class="button_b" hx-on="click" hx-get="/" hx-target=".pop-up-background" hx-swap="delete">
                 <div class="button-name card">Закрыть</div>

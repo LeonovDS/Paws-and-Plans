@@ -1,0 +1,9 @@
+@import model.Pet
+@param pet: Pet
+
+<div class="item" hx-on="click" hx-target=".pop-up-background"
+     hx-swap="delete" hx-post="/shop/${pet.id.toString()}/select">
+    <img src="${pet.image}" alt="${pet.kind}">
+    <div class="item_name">${pet.kind}</div>
+    <div class="item_select">Выбрать</div>
+</div>

@@ -3,6 +3,7 @@ import arrow.core.raise.either
 import data.Id
 import data.TaskData
 import model.TasksModel
+import repository.IPetRepository
 import repository.ITaskRepository
 import repository.IUserRepository
 import java.util.*
@@ -10,17 +11,18 @@ import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.pow
 
-context(Id, ITaskRepository)
+context(Id, ITaskRepository, IUserRepository, IPetRepository)
 fun getTasks(): Either<DomainError, TasksModel> = either {
-    TasksModel(tasks = getAllTasks().bind(), null)
+    TasksModel(tasks = getAllTasks().bind(), null, getRandomImage().bind())
 }
 
-context(Id, ITaskRepository)
+context(Id, ITaskRepository, IUserRepository, IPetRepository)
 fun getTasks(taskId: UUID): Either<DomainError, TasksModel> = either {
     val tasks = getAllTasks().bind()
     TasksModel(
         tasks = tasks,
-        currentTask = tasks.firstOrNull { it.id == taskId } ?: raise(NotFound)
+        currentTask = tasks.firstOrNull { it.id == taskId } ?: raise(NotFound),
+        pet = getRandomImage().bind(),
     )
 }
 
@@ -30,21 +32,23 @@ fun create(data: TaskData): Either<DomainError, TaskData> = either {
     getTask(taskId).bind()
 }
 
-context(Id, ITaskRepository)
+context(Id, ITaskRepository, IUserRepository, IPetRepository)
 fun deleteTaskDomain(taskId: UUID): Either<DomainError, TasksModel> = either {
     deleteTask(taskId).bind()
     TasksModel(
         tasks = getAllTasks().bind(),
-        currentTask = null
+        currentTask = null,
+        pet = getRandomImage().bind()
     )
 }
 
-context(Id, ITaskRepository)
+context(Id, ITaskRepository, IUserRepository, IPetRepository)
 fun updateTaskDomain(data: TaskData): Either<DomainError, TasksModel> = either {
     updateTask(taskData = data).bind()
     TasksModel(
         tasks = getAllTasks().bind(),
-        currentTask = data
+        currentTask = data,
+        pet = getRandomImage().bind()
     )
 }
 
@@ -64,7 +68,7 @@ fun calculateHappiness(currentHappiness: Int, delta: Int): Int {
     return y.toInt()
 }
 
-context(Id, ITaskRepository, IUserRepository)
+context(Id, ITaskRepository, IUserRepository, IPetRepository)
 fun completeTaskDomain(taskId: UUID): Either<DomainError, TasksModel> = either {
     val task = getTask(taskId).bind()
     val userData = getUserData().bind()
@@ -74,6 +78,7 @@ fun completeTaskDomain(taskId: UUID): Either<DomainError, TasksModel> = either {
     completeTask(taskId).bind()
     TasksModel(
         tasks = getAllTasks().bind(),
-        currentTask = null
+        currentTask = null,
+        pet = getRandomImage().bind()
     )
 }

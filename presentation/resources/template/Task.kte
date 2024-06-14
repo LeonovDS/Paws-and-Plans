@@ -1,20 +1,16 @@
 @import data.TaskData
-@import data.Priority
+@import data.toCount
 @param task: TaskData
 
-<div class="option2 card" hx-on="click" hx-get="/tasks/${task.id?.toString() ?: "no id"}" hx-target="form" hx-select="form" hx-swap="outerHTML">
+<div class="option2 card" hx-on="click" hx-get="/tasks/${task.id?.toString() ?: "no id"}" hx-target="form"
+     hx-select="form" hx-swap="outerHTML">
     <div class="option-name card">
-        !{val count = when (task.priority) {
-                                    Priority.LOW -> 1
-                                    Priority.MEDIUM -> 2
-                                    Priority.HIGH -> 3
-                                }}
-        @for (i in 0 until count)
-            <div class="stars1">
+        <div class="stars1">
+            @for (j in 0 until task.priority.toCount())
                 <img src="/images/Starsmall.svg" alt="star1">
-            </div>
-        @endfor
-        <div class="name-card">${count}</div>
+            @endfor
+        </div>
+        <div class="name-card">${task.priority.toCount()}</div>
     </div>
-    <div class="option-text card">${task.name}</div>
+    <div class="option-text card ${if(task.isCompleted) "completed" else ""}">${task.name}</div>
 </div>

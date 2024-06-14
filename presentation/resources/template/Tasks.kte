@@ -2,44 +2,34 @@
 @import model.TasksModel
 @param model: TasksModel
 
-<!DOCTYPE html>
-<html lang="en">
+@template.Page(body = @`
+    <link rel="stylesheet" href="/tasks.css">
+    <div class="wrapper">
+        <div class="container">
+            @template.Header(pageName = "Задачи", page = "tasks")
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
-    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-    <title>Paws and Plans - Задачи</title>
-</head>
-
-<body>
-<link rel="stylesheet" href="/tasks.css">
-<div class="wrapper">
-    <div class="container">
-        <div class="header semi-card">
-            <div class="header-text semi-card">
-                Задачи
+            <div class="pet-wrapper">
+                @template.Pet(model.pet)
             </div>
-        </div>
 
-        <div class="card-wrapper1 card">
-            @template.TaskForm(model.currentTask)
-        </div>
-        <div class="card-wrapper2 card">
-            <div class="option-card2 card">
-                <div id="task-list" class="option-card1 card" hx-swap-oob="outerHTML:#task-list">
-                    <div class="name-bar">
-                        <div class="task_name2">Список задач</div>
+            <div class="card-wrapper1 card">
+                <div class="option-card1 card">
+                    @template.TaskForm(model)
+                </div>
+            </div>
+
+            <div class="card-wrapper2 card">
+                <div class="option-card2 card">
+                    <div id="task-list" class="option-card1 card" hx-swap-oob="outerHTML:#task-list">
+                        <div id="task-name-bar" class="name-bar">
+                            <div class="task_name2">Список задач</div>
+                        </div>
+                        @for ((i, task) in model.tasks.withIndex())
+                            @template.Task(task = task)
+                        @endfor
                     </div>
-                    @for (task in model.tasks)
-                        @template.Task(task)
-                    @endfor
                 </div>
             </div>
         </div>
     </div>
-</div>
-</body>
-</html>
+`)

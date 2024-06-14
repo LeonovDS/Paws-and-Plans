@@ -14,6 +14,7 @@ import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import table.AppUserTable
 import table.PetTable
+import java.util.*
 
 class UserRepository(private val db: Database) : IUserRepository {
     context(Id)
@@ -31,6 +32,7 @@ class UserRepository(private val db: Database) : IUserRepository {
                         id = it[PetTable.id]!!,
                         kind = it[PetTable.kind]!!,
                         price = it[PetTable.price]!!,
+                        kindTranslation = it[PetTable.kindTranslation]!!
                     )
                 )
             }.firstOrNull()
@@ -66,6 +68,16 @@ class UserRepository(private val db: Database) : IUserRepository {
     context(Id) override fun updateHappiness(newHappiness: Int): Either<DomainError, Unit> = catch({
         db.update(AppUserTable) {
             set(AppUserTable.happiness, newHappiness)
+            where { AppUserTable.id eq id }
+        }
+        Unit.right()
+    }) {
+        SqlError(it).left()
+    }
+
+    context(Id) override fun setPet(petId: UUID): Either<DomainError, Unit> = catch({
+        db.update(AppUserTable) {
+            set(AppUserTable.currentPet, petId)
             where { AppUserTable.id eq id }
         }
         Unit.right()

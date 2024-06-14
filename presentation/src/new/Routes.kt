@@ -1,26 +1,27 @@
 package new
 
 import Auth
-import SetupData
-import data.Id
 import SignInData
 import SignUpData
 import SqlError
 import arrow.core.flatMap
-import arrow.core.partially1
+import arrow.core.right
 import buyPet
 import completeTaskDomain
 import create
+import data.Id
 import data.Priority
 import data.TaskData
 import deleteTaskDomain
 import getIndex
+import getPetSamples
 import getShop
 import getTasks
 import getTemplateEngine
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import model.IndexModel
+import model.SignInModel
+import model.SignUpModel
 import org.http4k.core.*
 import org.http4k.core.cookie.Cookie
 import org.http4k.core.cookie.cookie
@@ -32,13 +33,12 @@ import org.http4k.routing.RoutingHttpHandler
 import org.http4k.routing.bind
 import org.http4k.routing.path
 import org.http4k.routing.routes
-import org.http4k.routing.sse.bind
 import org.slf4j.Logger
 import renderTemplate
 import repository.*
 import respondError
 import respondSuccess
-import setup
+import selectPet
 import signUp
 import validateUser
 import java.time.LocalDate
@@ -49,30 +49,38 @@ import java.util.*
 private val intTemplateEngine = getTemplateEngine()
 private val auth = Auth()
 
-internal val `GET sign-up`: RoutingHttpHandler = "/sign-up" bind Method.GET to { _ ->
-    intTemplateEngine.renderTemplate("SignUp.kte", Unit).fold(::respondError, ::respondSuccess)
+context(Logger, IPetRepository)
+internal fun `GET sign-up`(): RoutingHttpHandler = "/sign-up" bind Method.GET to { _ ->
+    getPetSamples().flatMap {
+        intTemplateEngine.renderTemplate("Login.kte", SignUpModel(it))
+    }.fold(::respondError, ::respondSuccess)
 }
 
-internal val `GET sign-in`: RoutingHttpHandler = "/sign-in" bind Method.GET to { _ ->
-    intTemplateEngine.renderTemplate("SignIn.kte", Unit).fold(::respondError, ::respondSuccess)
-}
-
-internal val `GET setup`: RoutingHttpHandler = "/setup" bind Method.GET to { _ ->
-    intTemplateEngine.renderTemplate("Setup.kte", Unit).fold(::respondError, ::respondSuccess)
+internal fun `GET sign-in`(): RoutingHttpHandler = "/sign-in" bind Method.GET to { _ ->
+    intTemplateEngine.renderTemplate("Login.kte", SignInModel).fold(::respondError, ::respondSuccess)
 }
 
 @Serializable
 data class SignUp(
     val login: String,
     val password: String,
+    val petName: String,
+    val petKind: String
 )
 
-context(Logger, IAuthRepository)
+context(Logger, IAuthRepository, IUserRepository, IPetRepository)
 internal fun `POST sign-up`(): RoutingHttpHandler = "/sign-up" bind Method.POST to { request: Request ->
     val signUpLens = Body.auto<SignUp>().toLens()
     val signUpData = signUpLens(request)
     info("POST /sign-up: $signUpData")
-    signUp(SignUpData(signUpData.login, signUpData.password)).fold(::respondError) { _ ->
+    signUp(
+        SignUpData(
+            signUpData.login,
+            signUpData.password,
+            signUpData.petName,
+            UUID.fromString(signUpData.petKind)
+        )
+    ).fold(::respondError) { _ ->
         respondSuccess("").header("HX-Redirect", "/sign-in")
     }
 }
@@ -113,7 +121,7 @@ internal fun authFilter() = Filter { handler ->
         }
         if (id == null) {
             info("Attempt to access ${request.uri} without auth")
-            `GET sign-in`(request.uri(Uri.of("/sign-in"))).removeCookie("auth")
+            `GET sign-in`()(request.uri(Uri.of("/sign-in"))).removeCookie("auth")
         } else {
             info("Authentificated: ${request.uri}")
             handler(authLens(Id(id), request))
@@ -125,33 +133,12 @@ context(Logger, ITaskRepository, IUserRepository, IPetRepository)
 internal fun `GET |`(): RoutingHttpHandler = "/" bind Method.GET to { request ->
     with(authLens(request)) {
         getIndex().flatMap { intTemplateEngine.renderTemplate("Index.kte", it) }.fold({
-            info("Index error: ${it}")
-            if (it is SqlError) {
-                info("${it.sqlError}")
-            }
-            Response(Status.TEMPORARY_REDIRECT).header("Location", "/setup")
+            Response(Status.TEMPORARY_REDIRECT).header("Location", "/sign-in")
         }, ::respondSuccess)
     }
 }
 
-@Serializable
-data class Setup(
-    val name: String,
-    val kind: String,
-)
-
-context(Logger, IUserRepository, IPetRepository)
-internal fun `POST setup`(): RoutingHttpHandler = "/setup" bind Method.POST to { request ->
-    with(authLens(request)) {
-        val setupLens = Body.auto<Setup>().toLens()
-        val setupData = setupLens(request)
-        setup(SetupData(setupData.name, setupData.kind)).fold(::respondError) {
-            respondSuccess("").header("HX-Redirect", "/")
-        }
-    }
-}
-
-context(Logger, ITaskRepository)
+context(Logger, ITaskRepository, IUserRepository, IPetRepository)
 internal fun `GET tasks`(): RoutingHttpHandler = "/tasks" bind Method.GET to { request: Request ->
     with(authLens(request)) {
         getTasks().flatMap {
@@ -160,7 +147,7 @@ internal fun `GET tasks`(): RoutingHttpHandler = "/tasks" bind Method.GET to { r
     }
 }
 
-context(Logger, ITaskRepository)
+context(Logger, ITaskRepository, IUserRepository, IPetRepository)
 internal fun `GET tasks|{id}`(): RoutingHttpHandler = "/tasks/{id}" bind Method.GET to { request: Request ->
     with(authLens(request)) {
         val taskId = UUID.fromString(request.path("id"))
@@ -189,6 +176,15 @@ internal fun `POST shop|{id}|buy`(): RoutingHttpHandler = "/shop/{id}/buy" bind 
     }
 }
 
+context(Logger, IUserRepository, IPetRepository)
+internal fun `POST shop|{id}|select`(): RoutingHttpHandler =
+    "/shop/{id}/select" bind Method.POST to { request: Request ->
+        with(authLens(request)) {
+            val petId = UUID.fromString(request.path("id"))
+            selectPet(petId).map { "" }.fold(::respondError, ::respondSuccess).header("HX-Location", "/")
+        }
+    }
+
 @Serializable
 data class CreateTask(
     @SerialName("taskInput")
@@ -212,49 +208,51 @@ internal fun `POST tasks|create`(): RoutingHttpHandler = "/tasks/create" bind Me
     with(authLens(request)) {
         val createTaskLens = Body.auto<CreateTask>().toLens()
         val createTaskData = createTaskLens(request)
-        create(TaskData(
-            name = createTaskData.name,
-            description = createTaskData.description,
-            priority = createTaskData.priority,
-            deadline = LocalDateTime.of(createTaskData.date, createTaskData.time),
-            isCompleted = createTaskData.isCompleted,
-        )).flatMap { intTemplateEngine.renderTemplate("Task.kte", it) }
+        create(
+            TaskData(
+                name = createTaskData.name,
+                description = createTaskData.description,
+                priority = createTaskData.priority,
+                deadline = LocalDateTime.of(createTaskData.date, createTaskData.time),
+                isCompleted = createTaskData.isCompleted,
+            )
+        ).flatMap { intTemplateEngine.renderTemplate("Task.kte", it) }
             .fold(::respondError, ::respondSuccess)
     }
 }
 
-context(Logger, ITaskRepository, IUserRepository)
+context(Logger, ITaskRepository, IUserRepository, IPetRepository)
 internal fun `DELETE tasks|{id}`(): RoutingHttpHandler = "/tasks/{id}" bind Method.DELETE to { request: Request ->
     with(authLens(request)) {
         val taskId = UUID.fromString(request.path("id"))
-        deleteTaskDomain(taskId).flatMap{ intTemplateEngine.renderTemplate("Tasks.kte", it) }.fold(::respondError, ::respondSuccess)
+        deleteTaskDomain(taskId).flatMap { intTemplateEngine.renderTemplate("Tasks.kte", it) }
+            .fold(::respondError, ::respondSuccess)
     }
 }
-context(Logger, ITaskRepository, IUserRepository)
-internal fun `POST tasks|{id}|complete`(): RoutingHttpHandler = "/tasks/{id}/complete" bind Method.POST to { request: Request ->
-    with(authLens(request)) {
-        val taskId = UUID.fromString(request.path("id"))
-        completeTaskDomain(taskId).flatMap{ intTemplateEngine.renderTemplate("Tasks.kte", it) }.fold(::respondError, ::respondSuccess)
+
+context(Logger, ITaskRepository, IUserRepository, IPetRepository)
+internal fun `POST tasks|{id}|complete`(): RoutingHttpHandler =
+    "/tasks/{id}/complete" bind Method.POST to { request: Request ->
+        with(authLens(request)) {
+            val taskId = UUID.fromString(request.path("id"))
+            completeTaskDomain(taskId).flatMap { intTemplateEngine.renderTemplate("Tasks.kte", it) }
+                .fold(::respondError, ::respondSuccess)
+        }
     }
-}
 
 context(Logger, IMultiRepository)
 fun getRoutes(): RoutingHttpHandler =
     routes(
-        `GET sign-up`,
+        `GET sign-up`(),
         `POST sign-up`(),
-        `GET sign-in`,
+        `GET sign-in`(),
         `POST sign-in`(),
         authFilter().then(
             routes(
-                `GET setup`,
-                `POST setup`(),
                 `GET |`(),
                 `GET shop`(),
                 `POST shop|{id}|buy`(),
-                "/shop" bind Method.POST to ::placeholder,
-                "/settings" bind Method.GET to ::placeholder,
-                "/settings" bind Method.POST to ::placeholder,
+                `POST shop|{id}|select`(),
 
                 `GET tasks`(),
                 `GET tasks|{id}`(),

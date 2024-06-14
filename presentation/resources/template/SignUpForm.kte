@@ -1,0 +1,52 @@
+@import model.SignUpModel
+@import data.PetData
+@param model: SignUpModel
+
+<div class="header card">
+    <div class="registration card active">
+        <div class="registration-text active">Регистрация</div>
+    </div>
+    <div class="registration card"
+         hx-on="click" hx-get="/sign-in"
+         hx-target="#form-placeholder" hx-select="#form-placeholder">
+        <div class="registration-text1">Вход</div>
+    </div>
+</div>
+
+<form id="sign-up-form">
+    <div class="option-back card">
+        <div class="option-front card">
+            <div class="option-text">Логин</div>
+        </div>
+        <input type="text" name="login">
+    </div>
+    <div class="option-back card">
+        <div class="option-front card">
+            <div class="option-text">Пароль</div>
+        </div>
+        <input type="password" name="password">
+    </div>
+    <div class="option-back card">
+        <div class="option-front card">
+            <div class="option-text">Кличка</div>
+        </div>
+        <input type="text" name="petName">
+    </div>
+    <div class="option-back card">
+        <div class="option-front card">
+            <div class="option-text">Вид</div>
+        </div>
+        <select name="petKind">
+            @for(pet in model.pets)
+                <option value="${pet.id?.toString()}">${pet.kindTranslation}</option>
+            @endfor
+        </select>
+    </div>
+    <div class="button-back card"
+         hx-post="/sign-up" hx-ext="json-enc" hx-include="#sign-up-form"
+         hx-target="#form-placeholder" hx-select="#form-placeholder">
+        <div class="button-front card">
+            <div class="button-text">Регистрация</div>
+        </div>
+    </div>
+</form>

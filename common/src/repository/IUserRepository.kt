@@ -4,6 +4,7 @@ import DomainError
 import arrow.core.Either
 import data.Id
 import data.UserData
+import java.util.*
 
 interface IUserRepository {
     context(Id)
@@ -17,4 +18,7 @@ interface IUserRepository {
 
     context(Id)
     fun updateHappiness(newHappiness: Int): Either<DomainError, Unit>
+
+    context(Id)
+    fun setPet(petId: UUID): Either<DomainError, Unit>
 }

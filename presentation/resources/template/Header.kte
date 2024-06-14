@@ -1,0 +1,16 @@
+@param pageName: String
+@param page: String
+
+<div class="header semi-card">
+    <div class="box_circles semi-card">
+        <div class="header-text">
+            ${pageName}
+        </div>
+    </div>
+    <div class="circle" hx-get="/" hx-swap="outerHTML" hx-target="body">
+        <img src="/images/circle_white.svg" alt="star">
+    </div>
+    <div class="circle1" hx-get="/tasks" hx-swap="outerHTML" hx-target="body">
+        <img src="/images/circle_${if (page == "main") "lilac" else "white"}.svg" alt="star">
+    </div>
+</div>

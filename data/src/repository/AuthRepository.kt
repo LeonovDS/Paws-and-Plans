@@ -15,11 +15,11 @@ import table.AuthTable
 import java.util.*
 
 class AuthRepository(private val db: Database) : IAuthRepository {
-    override fun createAuthData(data: SignUpData): Either<DomainError, Int> = catch({
-        db.insert(AuthTable) {
+    override fun createAuthData(data: SignUpData): Either<DomainError, UUID> = catch({
+        (db.insertAndGenerateKey(AuthTable) {
             set(AuthTable.login, data.login)
             set(AuthTable.password, data.password)
-        }.right()
+        } as UUID).right()
     }) {
         SqlError(it).left()
     }

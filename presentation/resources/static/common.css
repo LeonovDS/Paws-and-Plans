@@ -1,0 +1,65 @@
+:root {
+    --blocks-margin: 16px;
+    --blocks-border-radius: 48px;
+    --standard-padding: 8px;
+    --standard-vertical-text-padding: 4px;
+    --standard-horizontal-text-padding: 8px;
+
+    --lilac: #BABDE2;
+    --darklilac: #374375;
+    --blue: #000950;
+    --white: #F5F5F5;
+
+    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@font-face {
+    font-family: 'avenirnextcyr';
+    src: url('fonts/avenirnextcyr-thin.eot');
+    src: url('fonts/avenirnextcyr-thin.eot?#iefix') format('embedded-opentype'),
+        url('fonts/avenirnextcyr-thin.woff2') format('woff2'),
+        url('fonts/avenirnextcyr-thin.woff') format('woff'),
+        url('fonts/avenirnextcyr-thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: 1.2rem 'avenirnextcyr';
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.wrapper {
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: #374375;
+}
+
+a:visited {
+    color: #000950;
+}
+
+a:hover {
+    color: #374375;
+}
+
+a:active {
+    color: #374375;
+}
+
+.card {
+    border-radius: var(--blocks-border-radius);
+}
+
+.semi-card {
+    border-radius: 0 var(--blocks-border-radius) var(--blocks-border-radius) 0;
+}

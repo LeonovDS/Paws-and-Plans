@@ -1,0 +1,7 @@
+@param petUrl: String
+
+<div class="main-card card" style="background-image: url('/images/forest-with-field.png');">
+    <div class="image-container">
+        <img class="pet" src="${petUrl}" alt="image">
+    </div>
+</div>

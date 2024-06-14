@@ -24,6 +24,7 @@ fun toPetData(query: QueryRowSet): PetData =
         id = query[PetTable.id]!!,
         kind = query[PetTable.kind]!!,
         price = query[PetTable.price]!!,
+        kindTranslation = query[PetTable.kindTranslation]!!
     )
 
 

@@ -13,13 +13,8 @@ context(Id, IUserRepository, IPetRepository, ITaskRepository)
 fun getIndex(): Either<DomainError, IndexModel> = either {
     val user = getUserData().bind()
     val tasks = getAllTasks().bind()
-    val image = getImages(user.currentPet.id!!).bind().filter { user.happiness in it.minHappiness..it.maxHappiness }
-        .randomOrNull()
-        ?: raise(NotFound)
-    val quote = getQuotes(user.currentPet.id!!).bind().filter { user.happiness in it.minHappiness..it.maxHappiness }
-        .randomOrNull()
-        ?: raise(NotFound)
-
+    val image = getRandomImage().bind()
+    val quote = getRandomQuote().bind()
     IndexModel(
         userData = user,
         petImage = image,

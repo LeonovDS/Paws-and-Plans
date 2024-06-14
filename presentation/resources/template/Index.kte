@@ -1,99 +1,71 @@
 @import model.IndexModel
 @param model: IndexModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
-    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-    <title>Paws and Plans - Главная</title>
-</head>
-<body>
-<div class="wrapper">
-    <div class="container">
-        <div class="header semi-card">
-            <div class="box_circles semi-card">
-                <div class="header-text">
-                    Главная страница
-                    <a href="/tasks">
-                        <div class="circle">
-                            <img src="/images/circle_white.svg" alt="star">
-                        </div>
-                    </a>
-                    <div class="circle1">
-                        <img src="/images/circle_lilac.svg" alt="star">
+@template.Page(body = @`
+    <link rel="stylesheet" href="/index.css">
+    <div class="wrapper">
+        <div class="container">
+            @template.Header(pageName = "Главная страница", page = "main")
+            <div class="shop-button-wrapper card" hx-get="/shop" hx-target=".container" hx-swap="beforeend">
+                <div class="shop-button card">
+                    <a href="#main">Магазин</a>
+                </div>
+            </div>
+            @template.Pet(model.petImage)
+            <div class="card-wrapper card">
+                <div class="option-card card">
+                    <div class="option1 card">
+                        <div class="option-name card">Свойства</div>
+                    </div>
+                    <div class="option2 card">
+                        <div class="option-name card">Имя</div>
+                        <div class="option-text card">${model.userData.petName}</div>
+                    </div>
+                    <div class="option2 card">
+                        <div class="option-name card">Монеты</div>
+                        <div class="option-text card">${model.userData.coins}</div>
+                    </div>
+                    <div class="option2 card">
+                        <div class="option-name card">Счастье</div>
+                        <div class="option-text card">${model.userData.happiness}</div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="shop-button-wrapper card" hx-get="shop" hx-target=".container" hx-swap="beforeend">
-            <div class="shop-button card">
-                Магазин
-            </div>
-        </div>
-        <div class="shop-button-wrapper1 card" hx-get="settings" hx-target=".container" hx-swap="beforeend">
-            <div class="shop-button1 card">
-                Настройки
-            </div>
-        </div>
-        <div class="main-card card"></div>
-        <div class="card-wrapper card">
-            <div class="option-card card">
-                <div class="option1 card">
-                    <div class="option-name card">Свойства</div>
-                </div>
-                <div class="option2 card">
-                    <div class="option-name card">Имя</div>
-                    <div class="option-text card">${model.userData.petName}</div>
-                </div>
-                <div class="option2 card">
-                    <div class="option-name card">Монеты</div>
-                    <div class="option-text card">${model.userData.coins}</div>
-                </div>
-                <div class="option2 card">
-                    <div class="option-name card">Счастье</div>
-                    <div class="option-text card">${model.userData.happiness}</div>
-                </div>
-            </div>
-        </div>
-        <div class="card-wrapper card">
-            <div class="option-card card">
-                <div class="option1 card">
-                    <div class="option-name card">Текущие задачи</div>
-                </div>
-                @for ((i, task) in model.tasks.withIndex())
-                    <a hx-boost href="/tasks/${task.id?.toString() ?: "no id"}">
-                        <div class="option2 card">
-                            <div class="option-name card">${i + 1}</div>
-                            <div class="option-text card">${task.name}</div>
+            <div class="card-wrapper card cw2">
+                <div class="option-card card">
+                    <div class="option1 card">
+                        <div class="option-name card">Текущие задачи</div>
+                    </div>
+                    <div class="task-list-wrapper">
+                    @for ((i, task) in model.tasks.withIndex())
+                        <a hx-boost href="/tasks/${task.id?.toString() ?: "no id"}">
+                            <div class="option3 card">
+                                <div class="option-name card">${i + 1}</div>
+                                <div class="option-text card ${if(task.isCompleted) "completed" else ""}">${task.name}</div>
+                            </div>
+                        </a>
+                    @endfor
+                    </div>
+                    <div style="flex: 1"></div>
+                    <a class="add_new_wrapper" hx-boost href="/tasks">
+                        <div class="add_new">
+                            <img src="/images/plus.svg" alt="star">
                         </div>
                     </a>
-                @endfor
-                <a hx-boost href="/tasks">
-                    <div class="add_new">
-                        <img src="/images/plus.svg" alt="star">
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="footer semi-card">
-            <div class="name-wrapper semi-card">
-                <div class="name semi-card">
-                    ${model.userData.petName}
                 </div>
             </div>
-            <div class="chat-wrapper semi-card">
-                <div class="chat semi-card">
-                    ${model.petQuote.quote}
+            <div class="footer semi-card">
+                <div class="name-wrapper semi-card">
+                    <div class="name semi-card">
+                        ${model.userData.petName}
+                    </div>
+                </div>
+                <div class="chat-wrapper semi-card">
+                    <div class="chat semi-card">
+                        ${model.petQuote}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</body>
-</html>
+`)

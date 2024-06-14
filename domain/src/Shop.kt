@@ -1,6 +1,9 @@
 import arrow.core.Either
 import arrow.core.raise.either
+import arrow.core.raise.ensure
 import data.Id
+import data.PetData
+import model.IndexModel
 import model.Pet
 import model.ShopModel
 import repository.IPetRepository
@@ -15,7 +18,7 @@ fun getShop(): Either<DomainError, ShopModel> = either {
     ShopModel(pets = allPets.map { pet ->
         Pet(
             id = pet.id!!,
-            kind = pet.kind,
+            kind = pet.kindTranslation,
             price = pet.price,
             isOwned = pets.find { it == pet.id } != null,
             isSelected = user.currentPet.id == pet.id,
@@ -28,7 +31,14 @@ context(Id, IUserRepository, IPetRepository)
 fun buyPet(petId: UUID): Either<DomainError, ShopModel> = either {
     val user = getUserData().bind()
     val pet = getPet(petId).bind()
+    ensure(user.coins >= pet.price) { NotFound }
     updateCoins(user.coins - pet.price).bind()
     addPetInPossession(id, pet.id!!).bind()
     getShop().bind()
+}
+
+context(Id, IUserRepository, IPetRepository)
+fun selectPet(petId: UUID): Either<DomainError, PetData> = either {
+    setPet(petId).bind()
+    getPet(petId).bind()
 }

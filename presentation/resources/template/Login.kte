@@ -1,0 +1,22 @@
+@import model.LoginModel
+@import model.SignUpModel
+@import model.SignInModel
+@param model: LoginModel
+
+@template.Page(body = @`
+    <link rel="stylesheet" href="/login.css">
+    <div class="wrapper">
+        <div class="container">
+            <div class="logo-text">Pets & Plans</div>
+            <div class="card-wrapper card">
+                <div id="form-placeholder" class="option-card card">
+                    @if (model is SignUpModel)
+                        @template.SignUpForm(model as SignUpModel)
+                    @else
+                        @template.SignInForm(model as SignInModel)
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+`)

@@ -22,6 +22,7 @@ create table if not exists task (
 create table if not exists pet (
     id uuid primary key default gen_random_uuid(),
     kind varchar(255) not null,
+    kind_translation varchar(255) not null,
     price integer not null
 );
 
@@ -52,5 +53,5 @@ create table if not exists app_user (
 create table if not exists possession (
     id uuid primary key default gen_random_uuid(),
     owner_id uuid not null references app_user(id),
-    petid uuid not null references pet(id)
+    pet_id uuid not null references pet(id)
 );

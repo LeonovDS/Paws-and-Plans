@@ -8,7 +8,7 @@ import java.util.UUID
 
 data class IndexModel(
     val userData: UserData,
-    val petImage: PetImage,
-    val petQuote: PetQuote,
+    val petImage: String,
+    val petQuote: String,
     val tasks: List<TaskData>,
 )
