@@ -3,6 +3,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
 import org.ktorm.database.Database
+import java.sql.DriverManager
 import javax.sql.DataSource
 
 private data class Config(
@@ -19,25 +20,18 @@ private fun getConfigFromEnv() = Config(
     dbDriver = "org.postgresql.Driver",
 )
 
-private fun getDataSource(config: Config): DataSource =
-    HikariConfig().apply {
-        jdbcUrl = config.dbUrl
-        username = config.dbUser
+private fun getFlyway(config: Config): Flyway = Flyway
+    .configure()
+    .dataSource(config.dbUrl, config.dbUser, config.dbPassword)
+    .load()
+
+fun initDB(): Database {
+    val config = getConfigFromEnv()
+//    getFlyway(config).migrate()
+    return Database.connect(
+        url = config.dbUrl,
+        driver = config.dbDriver,
+        user = config.dbUser,
         password = config.dbPassword
-        driverClassName = config.dbDriver
-        connectionTimeout = 30000
-        idleTimeout = 60000
-        maxLifetime = 90000
-        maximumPoolSize = 10
-    }.let {
-        HikariDataSource(it)
-    }
-
-private val createDataSource = ::getConfigFromEnv andThen ::getDataSource
-
-private fun getFlyway(dataSource: DataSource): Flyway = Flyway.configure().dataSource(dataSource).load()
-
-fun initDB(): Database = createDataSource().let { dataSource ->
-    getFlyway(dataSource).migrate()
-    Database.connect(dataSource)
+    )
 }
