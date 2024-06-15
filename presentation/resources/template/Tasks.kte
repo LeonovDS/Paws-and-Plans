@@ -20,7 +20,7 @@
 
             <div class="card-wrapper2 card">
                 <div class="option-card2 card">
-                    <div id="task-list" class="option-card1 card" hx-swap-oob="outerHTML:#task-list">
+                    <div id="task-list" class="option-card1 card">
                         <div id="task-name-bar" class="name-bar">
                             <div class="task_name2">Список задач</div>
                         </div>

@@ -6,7 +6,7 @@ import org.http4k.routing.routes
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
 
-private const val PORT = 80
+private const val PORT = 8080
 
 fun main() {
     val port = System.getenv("PORT")?.toIntOrNull() ?: PORT

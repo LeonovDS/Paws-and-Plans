@@ -9,4 +9,4 @@ RUN tar xf app.tar --directory ./
 RUN rm app.tar
 
 CMD ["sh", "app/bin/app"]
-EXPOSE 80
+EXPOSE 8080

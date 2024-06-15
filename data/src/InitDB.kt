@@ -25,6 +25,10 @@ private fun getDataSource(config: Config): DataSource =
         username = config.dbUser
         password = config.dbPassword
         driverClassName = config.dbDriver
+        connectionTimeout = 30000
+        idleTimeout = 60000
+        maxLifetime = 90000
+        maximumPoolSize = 10
     }.let {
         HikariDataSource(it)
     }

@@ -89,8 +89,8 @@ select id, '/images/creature-sad.png', -40, 40
 from pet where kind = 'div';
 insert into pet_image(pet_id, url, min_happiness, max_happiness)
 select id, '/images/creature.png', 20, 100
-
 from pet where kind = 'div';
+
 insert into pet_quote(pet_id, quote, min_happiness, max_happiness)
 select id, 'Гррр! Твоя медлительность раздражает меня! Если ты не выпонишь задание сейчас же, я разгневаюсь!', -100, -20
 from pet where kind = 'div';
